@@ -33,7 +33,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1 class="title">The little book about OS development</h1>
 <h2 class="author">Erik Helin, Adam Renberg</h2>
 </div>
-<span class="date">29th of February, 2012</span>
+<span class="date">Commit: 0eda8fa88d9d5bafde5820772e08865d8b98ed70</span>
 <div id='content'>
 <div id="TOC">
 <h1>Contents</h1>
@@ -197,7 +197,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>The reader of this book should be comfortable with UNIX/Linux, systems programming and the C language in general. This book is of course also a great way to get started learning those things, but it will be tougher going, especially where we implicitly make use of them. Google and other tutorials are often helpful.</p>
 <h2 id="credits-thanks-and-acknowledgements"><a href="#TOC"><span class="header-section-number">1.3</span> Credits, thanks and acknowledgements</a></h2>
 <p>We’d like to thank the OSDev community <span class="citation">[2]</span> for their great wiki and helpful members, and James Malloy for his eminent kernel development tutorial <span class="citation">[3]</span>. We’d also like to thank our supervisor Torbjörn Granlund for his insightful questions and our interesting discussions.</p>
-<p>TODO: perhaps “number munchers”.</p>
 <p>Most of the CSS formatting of the book is based on the work by Scott Chacon for the book Pro Git, <a href="http://progit.org/"><code class="url">http://progit.org/</code></a>.</p>
 <h2 id="changes-and-corrections"><a href="#TOC"><span class="header-section-number">1.4</span> Changes and corrections</a></h2>
 <p>This book is hosted on Github - if you have any suggestions, comments or corrections, just fork the book, write your changes, and send us a pull request. We’ll happily incorporate anything that makes this book better.</p>
@@ -1696,7 +1695,7 @@ SECTIONS
 <p>Instead of letting the processes themselves manage when it is time to change to another process, the OS can switch processes automatically after a short period of time. The OS can set up the programmable interval timer (PIT) to raise an interrupt after a short period of time, for example 20 ms. In the interrupt handler for the PIT interrupt, the OS will change the running processes to a new one. This way, the processes themselves don’t need to think about scheduling.</p>
 <h3 id="programmable-interval-timer"><a href="#TOC"><span class="header-section-number">14.3.1</span> Programmable interval timer</a></h3>
 <p>To be able to do preemptive scheduling, the programmable interval timer (PIT) must be first be configured to raise interrupts every <em>x</em> milliseconds, where <em>x</em> should be configurable.</p>
-<p>The configuration of the PIT is very similar to the configuration of other hardware devices, you send a byte to an I/O port. The command port of the PIT is located at <code>0x43</code>. To read about all the configuration options, see [@osdev:pit]. We use the following options:</p>
+<p>The configuration of the PIT is very similar to the configuration of other hardware devices, you send a byte to an I/O port. The command port of the PIT is located at <code>0x43</code>. To read about all the configuration options, see <span class="citation">[30]</span>. We use the following options:</p>
 <ul>
 <li>Raise interrupts (use channel 0)</li>
 <li>Send the divider as low byte then high byte (see next section for an explanation)</li>
@@ -1704,6 +1703,8 @@ SECTIONS
 <li>Use binary mode</li>
 </ul>
 <p>This results in the configuration byte <code>00110110</code>.</p>
+<p>Setting the interval for how often interrupts are to be raised is done via a <em>divider</em>. Instead of sending the PIT a value (e.g. in milliseconds) that says how often an interrupt should be raised, you send a <em>divider</em>. The PIT operates at 1193182 Hz as default. To change this, you send a divider, for example 10. The PIT will then run at <code>1193182 / 10 = 1193182</code> Hz. The divider can only be 16 bits, so it only possible to configure the timers frequency between 1193182 Hz and <code>1193182 / 65535 = 18.2</code> Hz. We recommend that you create a function that takes an interval in milliseconds and converts it to the correct divider.</p>
+<p>The divider is then sent to channel 0 data I/O port of the PIT, but since you can only send 1 byte at a time, you must first send the lowest 8 bits, then the highest 8 bits of the divider. The channel 0 data I/O port is at <code>0x40</code>.</p>
 <h3 id="separate-kernel-stacks-for-processes"><a href="#TOC"><span class="header-section-number">14.3.2</span> Separate kernel stacks for processes</a></h3>
 <p>When the yield system calls is used, a privilege level change will occur, since the processes runs in user mode and the process switching will run in kernel mode. If all processes uses the same kernel stack (the stack exposed by the TSS), there will be trouble if a process in interrupted while still in kernel mode.</p>
 <p>The process that is being switched to will now use the same kernel stack, and will then overwrite what the previous have written on the stack (remember that TSS data structure points to the <em>beginning</em> of the stack).</p>
@@ -1747,6 +1748,7 @@ SECTIONS
 <p>[27] SIGOPS, <a href="http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html" title="http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html">http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html</a>,</p>
 <p>[28] Andries Brouwer, <em>Keyboard scancodes</em>, <a href="http://www.win.tue.nl/~aeb/linux/kbd/scancodes.html" title="http://www.win.tue.nl/~aeb/linux/kbd/scancodes.html">http://www.win.tue.nl/~aeb/linux/kbd/scancodes.html</a>,</p>
 <p>[29] Steve Chamberlain, <em>Using ld, the GNU linker</em>, <a href="http://www.math.utah.edu/docs/info/ld_toc.html" title="http://www.math.utah.edu/docs/info/ld_toc.html">http://www.math.utah.edu/docs/info/ld_toc.html</a>,</p>
+<p>[30] OSDev, <em>Programmable Interval Timer</em>, <a href="http://wiki.osdev.org/Programmable_Interval_Timer" title="http://wiki.osdev.org/Programmable_Interval_Timer">http://wiki.osdev.org/Programmable_Interval_Timer</a>,</p>
 </div>
 </div>
 
