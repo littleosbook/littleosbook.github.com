@@ -34,7 +34,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">Erik Helin, Adam Renberg</h2>
 </div>
 <div class="subheader">
-Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
+2012-05-11 | Commit: 29e097ea98f6dddba5640bcb583198f3abf94ad4
 <a class="pdflink" href="book.pdf" title="PDF version">PDF version</a>
 </div>
 <div id='content'>
@@ -42,10 +42,11 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
 <h1>Contents</h1>
 <ul>
 <li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a><ul>
-<li><a href="#the-reader"><span class="toc-section-number">1.1</span> The Reader</a></li>
-<li><a href="#credits-thanks-and-acknowledgements"><span class="toc-section-number">1.2</span> Credits, Thanks and Acknowledgements</a></li>
-<li><a href="#changes-and-corrections"><span class="toc-section-number">1.3</span> Changes and Corrections</a></li>
-<li><a href="#license"><span class="toc-section-number">1.4</span> License</a></li>
+<li><a href="#about-the-book"><span class="toc-section-number">1.1</span> About the Book</a></li>
+<li><a href="#the-reader"><span class="toc-section-number">1.2</span> The Reader</a></li>
+<li><a href="#credits-thanks-and-acknowledgements"><span class="toc-section-number">1.3</span> Credits, Thanks and Acknowledgements</a></li>
+<li><a href="#changes-and-corrections"><span class="toc-section-number">1.4</span> Changes and Corrections</a></li>
+<li><a href="#license"><span class="toc-section-number">1.5</span> License</a></li>
 </ul></li>
 <li><a href="#first-steps"><span class="toc-section-number">2</span> First Steps</a><ul>
 <li><a href="#tools"><span class="toc-section-number">2.1</span> Tools</a><ul>
@@ -190,55 +191,65 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
 </ul>
 </div>
 <h1 id="introduction"><a href="#TOC"><span class="header-section-number">1</span> Introduction</a></h1>
-<p>This book is a practical guide to writing your own x86 operating system. It is designed give enough help with the technical details while at the same time not reveal too much with samples and code excerpts. We’ve tried to collect parts of the vast (and often excellent) expanse of material and tutorials available, on the web and otherwise, and add our own insights into the problems we encountered and struggled with.</p>
+<p>This text is a practical guide to writing your own x86 operating system. It is designed give enough help with the technical details while at the same time not reveal too much with samples and code excerpts. We’ve tried to collect parts of the vast (and often excellent) expanse of material and tutorials available, on the web and otherwise, and add our own insights into the problems we encountered and struggled with.</p>
 <p>This book is not about the theory behind operating systems, or how any specific operating system (OS) works. For OS theory we recommend the book <em>Modern Operating Systems</em> by Andrew Tanenbaum <span class="citation">[1]</span>. Lists and details on current operating systems are available on the Internet.</p>
-<p>The starting chapters are quite detailed and explicit, to quickly get you into coding. Later chapters give more of an outline of what is needed, as more and more of the implementation and design becomes up to the reader, who should now be more familiar with the world of kernel development. At the end of some chapters are links for further reading, which might be interesting and give a deeper understanding of the topics covered.</p>
-<h2 id="the-reader"><a href="#TOC"><span class="header-section-number">1.1</span> The Reader</a></h2>
-<p>The reader of this book should be comfortable with UNIX/Linux, systems programming and the C language. This book could be a way to get started learning those things, but it will be more difficult, and developing an operating system is already challenging on its own. Search engines and other tutorials are often helpful if you get stuck.</p>
-<h2 id="credits-thanks-and-acknowledgements"><a href="#TOC"><span class="header-section-number">1.2</span> Credits, Thanks and Acknowledgements</a></h2>
-<p>We’d like to thank the OSDev community <span class="citation">[2]</span> for their great wiki and helpful members, and James Malloy for his eminent kernel development tutorial <span class="citation">[3]</span>. We’d also like to thank our supervisor Torbjörn Granlund for his insightful questions and interesting discussions.</p>
+<p>The starting chapters are quite detailed and explicit, to quickly get you into coding. Later chapters give more of an outline of what is needed, as more and more of the implementation and design becomes up to the reader, who should now be more familiar with the world of kernel development. At the end of some chapters there are links for further reading, which might be interesting and give a deeper understanding of the topics covered.</p>
+<p>In <a href="#first-steps">chapter 2</a> and <a href="#getting-to-c">3</a> we set up our development environment and boot up our OS kernel in a virtual machine, eventually starting to write code in C. We continue in <a href="#output">chapter 4</a> with writing to the screen and the serial port, and then we dive into segmentation in <a href="#segmentation">chapter 5</a> and interrupts and input in <a href="#interrupts-and-input">chapter 6</a>.</p>
+<p>After this we have a quite functional but bare-bones OS kernel. In <a href="#the-road-to-user-mode">chapter 7</a> we start the road to user mode applications, with virtual memory through paging (<a href="#a-short-introduction-to-virtual-memory">chapter 8</a> and <a href="#paging">9</a>), memory allocation (<a href="#page-frame-allocation">chapter 10</a>), and finally running a user application in <a href="#user-mode">chapter 11</a>.</p>
+<p>In the last three chapters we discuss the more advanced topics of file systems (<a href="#file-systems">chapter 12</a>), system calls (<a href="#system-calls">chapter 13</a>), and multitasking (<a href="#multitasking">chapter 14</a>).</p>
+<h2 id="about-the-book"><a href="#TOC"><span class="header-section-number">1.1</span> About the Book</a></h2>
+<p>The OS kernel and this book were produced as part of an advanced individual course at the Royal Institute of Technology <span class="citation">[2]</span>, Stockholm. The authors had previously taken courses in OS theory, but had only minor practical experience with OS kernel development. In order to get more insight and a deeper understanding of how the theory from the previous OS courses works out in practice, the authors decided to create a new course, which focused on the development of a small OS. Another goal of the course was writing a thorough tutorial on how to develop a small OS basically from scratch, and this short book is the result.</p>
+<p>The x86 architecture is, and has been for a long time, one of the most common hardware architectures. It was not a difficult choice to use the x86 architecture as the target of the OS, with its large community, extensive reference material and mature emulators. The documentation and information surrounding the details of the hardware we had to work with was not always easy to find or understand, despite (or perhaps due to) the age of the architecture.</p>
+<p>The OS was developed in about six weeks of full-time work. The implementation was done in many small steps, and after each step the OS was tested manually. By developing in this incremental and iterative way, it was often easier to find any bugs that were introduced, since only a small part of the code had changed since the last known good state of the code. We encourage the reader to work in a similar way.</p>
+<p>During the six weeks of development, almost every single line of code were written by the authors together (this way of working is also called <em>pair-programming</em>). It is our belief that we managed to avoid a lot of bugs due to this style of development, but this is hard to prove scientifically.</p>
+<h2 id="the-reader"><a href="#TOC"><span class="header-section-number">1.2</span> The Reader</a></h2>
+<p>The reader of this book should be comfortable with UNIX/Linux, systems programming, the C language and computer systems in general (such as hexadecimal notation <span class="citation">[3]</span>). This book could be a way to get started learning those things, but it will be more difficult, and developing an operating system is already challenging on its own. Search engines and other tutorials are often helpful if you get stuck.</p>
+<h2 id="credits-thanks-and-acknowledgements"><a href="#TOC"><span class="header-section-number">1.3</span> Credits, Thanks and Acknowledgements</a></h2>
+<p>We’d like to thank the OSDev community <span class="citation">[4]</span> for their great wiki and helpful members, and James Malloy for his eminent kernel development tutorial <span class="citation">[5]</span>. We’d also like to thank our supervisor Torbjörn Granlund for his insightful questions and interesting discussions.</p>
 <p>Most of the CSS formatting of the book is based on the work by Scott Chacon for the book Pro Git, <a href="http://progit.org/"><code class="url">http://progit.org/</code></a>.</p>
-<h2 id="changes-and-corrections"><a href="#TOC"><span class="header-section-number">1.3</span> Changes and Corrections</a></h2>
+<h2 id="changes-and-corrections"><a href="#TOC"><span class="header-section-number">1.4</span> Changes and Corrections</a></h2>
 <p>This book is hosted on Github - if you have any suggestions, comments or corrections, just fork the book, write your changes, and send us a pull request. We’ll happily incorporate anything that makes this book better.</p>
-<h2 id="license"><a href="#TOC"><span class="header-section-number">1.4</span> License</a></h2>
+<h2 id="license"><a href="#TOC"><span class="header-section-number">1.5</span> License</a></h2>
 <p>All content is under the Creative Commons Attribution Non Commercial Share Alike 3.0 license, <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/"><code class="url">http://creativecommons.org/licenses/by-nc-sa/3.0/us/</code></a>. The code samples are in the public domain - use them however you want. References to this book are always received with warmth.</p>
 <h1 id="first-steps"><a href="#TOC"><span class="header-section-number">2</span> First Steps</a></h1>
 <p>Developing an operating system (OS) is no easy task, and the question “How do I even begin to solve this problem?” is likely to come up several times during the course of the project for different problems. This chapter will help you set up your development environment and booting a very small (and primitive) operating system.</p>
 <h2 id="tools"><a href="#TOC"><span class="header-section-number">2.1</span> Tools</a></h2>
 <h3 id="quick-setup"><a href="#TOC"><span class="header-section-number">2.1.1</span> Quick Setup</a></h3>
-<p>We (the authors) have used Ubuntu <span class="citation">[4]</span> as the operating system for doing OS development, running it both physically and virtually (using the virtual machine VirtualBox <span class="citation">[5]</span>). A quick way to get everything up and running is to use the same setup as we did, since we know that these tools work with the samples provided in this book.</p>
-<p>Once Ubuntu is installed, either physical or virtual, the following packages needs to be installed using <code>apt-get</code>:</p>
+<p>We (the authors) have used Ubuntu <span class="citation">[6]</span> as the operating system for doing OS development, running it both physically and virtually (using the virtual machine VirtualBox <span class="citation">[7]</span>). A quick way to get everything up and running is to use the same setup as we did, since we know that these tools work with the samples provided in this book.</p>
+<p>Once Ubuntu is installed, either physical or virtual, the following packages should be installed using <code>apt-get</code>:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">sudo</span> apt-get <span class="kw">install</span> build-essential <span class="kw">nasm</span> genisoimage bochs bochs-x</code></pre>
 <h3 id="programming-languages"><a href="#TOC"><span class="header-section-number">2.1.2</span> Programming Languages</a></h3>
-<p>The operating system will be developed using the C programming language <span class="citation">[6]</span><span class="citation">[7]</span>. We use C because developing an OS requires a very precise control of the generated code and direct access to memory. Other languages that provides the same features can also be used, but this book will only cover C.</p>
-<p>The code will make use of one type attribute that is specific for GCC <span class="citation">[8]</span> (the meaning of the attribute will be explained later):</p>
+<p>The operating system will be developed using the C programming language <span class="citation">[8]</span><span class="citation">[9]</span>, using GCC <span class="citation">[10]</span>. We use C because developing an OS requires a very precise control of the generated code and direct access to memory. Other languages that provide the same features can also be used, but this book will only cover C.</p>
+<p>The code will make use of one type attribute that is specific for GCC:</p>
 <pre><code>    __attribute__((packed))</code></pre>
+<p>This attribute allows us to ensure that the compiler uses a memory layout for a <code>struct</code> exactly as we define it in the code. This is explained in more detail in the next chapter.</p>
 <p>Due to this attribute, the example code might be hard to compile using a C compiler other than GCC.</p>
-<p>For writing assembly, we have chosen NASM <span class="citation">[9]</span> as the assembler, since we prefer NASM’s syntax over GNU Assembler.</p>
-<p>Bash <span class="citation">[10]</span> will be used as the scripting language throughout the book.</p>
+<p>For writing assembly code, we have chosen NASM <span class="citation">[11]</span> as the assembler, since we prefer NASM’s syntax over GNU Assembler.</p>
+<p>Bash <span class="citation">[12]</span> will be used as the scripting language throughout the book.</p>
 <h3 id="host-operating-system"><a href="#TOC"><span class="header-section-number">2.1.3</span> Host Operating System</a></h3>
-<p>All the code examples assumes that the code is being compiled on a UNIX like operating system. All code examples have been successfully compiled using Ubuntu <span class="citation">[4]</span> versions 11.04 and 11.10.</p>
+<p>All the code examples assumes that the code is being compiled on a UNIX like operating system. All code examples have been successfully compiled using Ubuntu <span class="citation">[6]</span> versions 11.04 and 11.10.</p>
 <h3 id="build-system"><a href="#TOC"><span class="header-section-number">2.1.4</span> Build System</a></h3>
-<p>GNU Make <span class="citation">[11]</span> has been used when constructing the Makefile examples. We don’t use features or syntax that is specific to GNU Make.</p>
+<p>Make <span class="citation">[13]</span> has been used when constructing the Makefile examples.</p>
 <h3 id="virtual-machine"><a href="#TOC"><span class="header-section-number">2.1.5</span> Virtual Machine</a></h3>
-<p>When developing an OS it is very convenient to be able to run your code in a <em>virtual machine</em> instead of on a physical computer, since starting your OS in a virtual machine is much faster than getting your OS onto a physical medium and then running it on a physical machine. Bochs <span class="citation">[12]</span> is an emulator for the x86 (IA-32) platform which is well suited for OS development due to its debugging features. Other popular choices are QEMU <span class="citation">[13]</span> and VirtualBox <span class="citation">[5]</span>. This book uses Bochs.</p>
+<p>When developing an OS it is very convenient to be able to run your code in a <em>virtual machine</em> instead of on a physical computer, since starting your OS in a virtual machine is much faster than getting your OS onto a physical medium and then running it on a physical machine. Bochs <span class="citation">[14]</span> is an emulator for the x86 (IA-32) platform which is well suited for OS development due to its debugging features. Other popular choices are QEMU <span class="citation">[15]</span> and VirtualBox <span class="citation">[7]</span>. This book uses Bochs.</p>
+<p>By using a virtual machine we cannot ensure that our OS works on real, physical hardware. The environment simulated by the virtual machine is designed to be very similar to their physical counterparts, and the OS can be tested on one by just copying the executable to a CD and finding a suitable machine.</p>
 <h2 id="booting"><a href="#TOC"><span class="header-section-number">2.2</span> Booting</a></h2>
 <p>Booting an operating system consists of transferring control along a chain of small programs, each one more “powerful” than the previous one, where the operating system is the last “program”. See the following figure for an example of the boot process:</p>
 <div class="figure">
 <img src="images/boot_chain.png" alt="An example of the boot process. Each box is a program." /><p class="caption">An example of the boot process. Each box is a program.</p>
 </div>
 <h3 id="bios"><a href="#TOC"><span class="header-section-number">2.2.1</span> BIOS</a></h3>
-<p>When the PC is turned on, the computer will start a small program that adheres to the <em>Basic Input Output System</em> (BIOS) <span class="citation">[14]</span> standard. This program is usually stored on a read only memory chip on the motherboard of the PC. The original role of the BIOS program was to export some library functions for printing to the screen, reading keyboard input etc. Modern operating systems do not use the BIOS’ functions, they use drivers that interact directly with the hardware, bypassing the BIOS. Today, BIOS mainly runs some early diagnostics (power-on-self-test) and then transfers control to the bootloader.</p>
+<p>When the PC is turned on, the computer will start a small program that adheres to the <em>Basic Input Output System</em> (BIOS) <span class="citation">[16]</span> standard. This program is usually stored on a read only memory chip on the motherboard of the PC. The original role of the BIOS program was to export some library functions for printing to the screen, reading keyboard input etc. Modern operating systems do not use the BIOS’ functions, they use drivers that interact directly with the hardware, bypassing the BIOS. Today, BIOS mainly runs some early diagnostics (power-on-self-test) and then transfers control to the bootloader.</p>
 <h3 id="the-bootloader"><a href="#TOC"><span class="header-section-number">2.2.2</span> The Bootloader</a></h3>
 <p>The BIOS program will transfer control of the PC to a program called a <em>bootloader</em>. The bootloader’s task is to transfer control to us, the operating system developers, and our code. However, due to some restrictions<sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup> of the hardware and because of backward compatibility, the bootloader is often split into two parts: the first part of the bootloader will transfer control to the second part, which finally gives control of the PC to the operating system.</p>
-<p>Writing a bootloader involves writing a lot of low-level code that interacts with the BIOS. Therefore, an existing bootloader will be used: the GNU GRand Unified Bootloader (GRUB) <span class="citation">[15]</span>.</p>
-<p>Using GRUB, the operating system can be built as an ordinary ELF <span class="citation">[16]</span> executable, which will be loaded by GRUB into the correct memory location. The compilation of the kernel requires that the code is laid out in memory in a specific way (how to compile the kernel will be discussed later in this chapter).</p>
+<p>Writing a bootloader involves writing a lot of low-level code that interacts with the BIOS. Therefore, an existing bootloader will be used: the GNU GRand Unified Bootloader (GRUB) <span class="citation">[17]</span>.</p>
+<p>Using GRUB, the operating system can be built as an ordinary ELF <span class="citation">[18]</span> executable, which will be loaded by GRUB into the correct memory location. The compilation of the kernel requires that the code is laid out in memory in a specific way (how to compile the kernel will be discussed later in this chapter).</p>
 <h3 id="the-operating-system"><a href="#TOC"><span class="header-section-number">2.2.3</span> The Operating System</a></h3>
-<p>GRUB will transfer control to the operating system by jumping to a position in memory. Before the jump, GRUB will look for a magic number to ensure that it is actually jumping to an OS and not some random code. This magic number is part of the <em>multiboot specification</em> <span class="citation">[17]</span> which GRUB adheres to. Once GRUB has made the jump, the OS has full control of the computer.</p>
+<p>GRUB will transfer control to the operating system by jumping to a position in memory. Before the jump, GRUB will look for a magic number to ensure that it is actually jumping to an OS and not some random code. This magic number is part of the <em>multiboot specification</em> <span class="citation">[19]</span> which GRUB adheres to. Once GRUB has made the jump, the OS has full control of the computer.</p>
 <h2 id="hello-cafebabe"><a href="#TOC"><span class="header-section-number">2.3</span> Hello Cafebabe</a></h2>
 <p>This section will describe how to implement of the smallest possible OS that can be used together with GRUB. The only thing the OS will do is write <code>0xCAFEBABE</code> to the <code>eax</code> register (most people would probably not even call this an OS).</p>
 <h3 id="compiling-the-operating-system"><a href="#TOC"><span class="header-section-number">2.3.1</span> Compiling the Operating System</a></h3>
-<p>This part of the OS has to be written in assembly, since C requires a stack, which isn’t available (the chapter <a href="#getting-to-c">“Getting to C”</a> describes how to set one up). Save the following code in a file called <code>loader.s</code>:</p>
+<p>This part of the OS has to be written in assembly code, since C requires a stack, which isn’t available (the chapter <a href="#getting-to-c">“Getting to C”</a> describes how to set one up). Save the following code in a file called <code>loader.s</code>:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">global</span> loader                   <span class="co">; the entry symbol for ELF</span>
 
     MAGIC_NUMBER <span class="dt">equ</span> <span class="bn">0x1BADB002</span>     <span class="co">; define the magic number constant</span>
@@ -246,18 +257,18 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
 
     <span class="kw">section</span> .text:                  <span class="co">; start of the text (code) section</span>
     <span class="kw">align</span> <span class="dv">4</span>                         <span class="co">; the code must be 4 byte aligned</span>
-        <span class="dt">dd</span> MAGIC_NUMBER             <span class="co">; write the magic number</span>
-        <span class="dt">dd</span> CHECKSUM                 <span class="co">; write the checksum</span>
+        <span class="dt">dd</span> MAGIC_NUMBER             <span class="co">; write the magic number to the machine code</span>
+        <span class="dt">dd</span> CHECKSUM                 <span class="co">; and the checksum</span>
 
 <span class="fu">    loader:</span>                         <span class="co">; the loader label (defined as entry point in linker script)</span>
         <span class="kw">mov</span> <span class="kw">eax</span>, <span class="bn">0xCAFEBABE</span>         <span class="co">; place the number 0xCAFEBABE in the register eax</span>
 <span class="fu">    .loop:</span>
         <span class="kw">jmp</span> .<span class="kw">loop</span>                   <span class="co">; loop forever</span></code></pre>
 <p>The only thing this OS will do is write the very specific number <code>0xCAFEBABE</code> to the <code>eax</code> register. It is <em>very</em> unlikely that the number <code>0xCAFEBABE</code> would be in the <code>eax</code> register if the OS did <em>not</em> put it there.</p>
-<p>The file <code>loader.s</code> can be compiled into a 32 bits ELF <span class="citation">[16]</span> object file with the following command:</p>
+<p>The file <code>loader.s</code> can be compiled into a 32 bits ELF <span class="citation">[18]</span> object file with the following command:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">nasm</span> -f elf32 loader.s</code></pre>
 <h3 id="linking-the-kernel"><a href="#TOC"><span class="header-section-number">2.3.2</span> Linking the Kernel</a></h3>
-<p>The code must now be linked to produce an executable file, which requires some extra thought compared to when linking most programs. We want GRUB to load the kernel at a memory address larger than or equal to <code>0x00100000</code> (1 megabyte (MB)), because addresses lower than 1 MB are used by GRUB itself, BIOS and memory-mapped I/O. Therefore, the following linker script is needed (written for GNU LD <span class="citation">[18]</span>):</p>
+<p>The code must now be linked to produce an executable file, which requires some extra thought compared to when linking most programs. We want GRUB to load the kernel at a memory address larger than or equal to <code>0x00100000</code> (1 megabyte (MB)), because addresses lower than 1 MB are used by GRUB itself, BIOS and memory-mapped I/O. Therefore, the following linker script is needed (written for GNU LD <span class="citation">[20]</span>):</p>
 <pre><code>    ENTRY(loader)           /* the name of the entry label */
 
     . = 0x00100000          /* the code should be loaded at 1 MB */
@@ -286,9 +297,9 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
 <pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">ld</span> -T link.ld -melf_i386 loader.o -o kernel.elf</code></pre>
 <p>The final executable will be called <code>kernel.elf</code>.</p>
 <h3 id="obtaining-grub"><a href="#TOC"><span class="header-section-number">2.3.3</span> Obtaining GRUB</a></h3>
-<p>The GRUB version we will use is GRUB Legacy, since the OS ISO image can then be generated on systems using both GRUB Legacy and GRUB 2. More specifically, the GRUB Legacy <code>stage2_eltorito</code> bootloader will be used. This file can be built from GRUB 0.97 by downloading the source from <a href="ftp://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz"><code class="url">ftp://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz</code></a>. However, the <code>configure</code> script doesn’t work well with Ubuntu <span class="citation">[19]</span>, so the binary file can be downloaded from <a href="http://littleosbook.github.com/files/stage2_eltorito"><code class="url">http://littleosbook.github.com/files/stage2_eltorito</code></a>. Copy the file <code>stage2_eltorito</code> to the folder that already contains <code>loader.s</code> and <code>link.ld</code>.</p>
+<p>The GRUB version we will use is GRUB Legacy, since the OS ISO image can then be generated on systems using both GRUB Legacy and GRUB 2. More specifically, the GRUB Legacy <code>stage2_eltorito</code> bootloader will be used. This file can be built from GRUB 0.97 by downloading the source from <a href="ftp://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz"><code class="url">ftp://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz</code></a>. However, the <code>configure</code> script doesn’t work well with Ubuntu <span class="citation">[21]</span>, so the binary file can be downloaded from <a href="http://littleosbook.github.com/files/stage2_eltorito"><code class="url">http://littleosbook.github.com/files/stage2_eltorito</code></a>. Copy the file <code>stage2_eltorito</code> to the folder that already contains <code>loader.s</code> and <code>link.ld</code>.</p>
 <h3 id="building-an-iso-image"><a href="#TOC"><span class="header-section-number">2.3.4</span> Building an ISO Image</a></h3>
-<p>The executable must be placed on a media that can be loaded by a virtual or physical machine. In this book we will use ISO <span class="citation">[20]</span> image files as the media, but one can also use floppy images, depending on what the virtual or physical machine supports.</p>
+<p>The executable must be placed on a media that can be loaded by a virtual or physical machine. In this book we will use ISO <span class="citation">[22]</span> image files as the media, but one can also use floppy images, depending on what the virtual or physical machine supports.</p>
 <p>We will create the kernel ISO image with the program <code>genisoimage</code>. A folder must first be created that contains the files that will be on the ISO image. The following commands create the folder and copy the files to their correct places:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">mkdir</span> -p iso/boot/grub              <span class="co"># create the folder structure</span>
     <span class="kw">cp</span> stage2_eltorito iso/boot/grub/   <span class="co"># copy the bootloader</span>
@@ -320,7 +331,7 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
 <p>For more information about the flags used in the command, see the manual for <code>genisoimage</code>.</p>
 <p>The ISO image <code>os.iso</code> now contains the kernel executable, the GRUB bootloader and the configuration file.</p>
 <h3 id="running-bochs"><a href="#TOC"><span class="header-section-number">2.3.5</span> Running Bochs</a></h3>
-<p>Now we can run the OS in Bochs using the <code>os.iso</code> ISO image. Bochs needs a configuration file to start and an example of a simple configuration file is given below:</p>
+<p>Now we can run the OS in the Bochs emulator using the <code>os.iso</code> ISO image. Bochs needs a configuration file to start and an example of a simple configuration file is given below:</p>
 <pre><code>    megs:            32
     display_library: x
     romimage:        file=/usr/share/bochs/BIOS-bochs-latest
@@ -330,7 +341,7 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
     log:             bochslog.txt
     clock:           sync=realtime, time0=local
     cpu:             count=1, ips=1000000</code></pre>
-<p>You might need to change the path to <code>romimage</code> and <code>vgaromimage</code> depending on how you installed Bochs. More information about the Bochs config file can be found at Boch’s website <span class="citation">[21]</span>.</p>
+<p>You might need to change the path to <code>romimage</code> and <code>vgaromimage</code> depending on how you installed Bochs. More information about the Bochs config file can be found at Boch’s website <span class="citation">[23]</span>.</p>
 <p>If you saved the configuration in a file named <code>bochsrc.txt</code> then you can run Bochs with the following command:</p>
 <pre><code>    bochs -f bochsrc.txt -q</code></pre>
 <p>The flag <code>-f</code> tells Bochs to use the given configuration file and the flag <code>-q</code> tells Bochs to skip the interactive start menu. You should now see Bochs starting and displaying a console with some information from GRUB on it.</p>
@@ -344,23 +355,23 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
 <li>The OSDev wiki also contains a nice article about booting an x86 computer: <a href="http://wiki.osdev.org/Boot_Sequence"><code class="url">http://wiki.osdev.org/Boot_Sequence</code></a></li>
 </ul>
 <h1 id="getting-to-c"><a href="#TOC"><span class="header-section-number">3</span> Getting to C</a></h1>
-<p>This chapter will show you how to use C instead of assembly as the programming language for the OS. Assembly is very good for interacting with the CPU and enables maximum control over every aspect of the code. However, at least for the authors, C is a much more convenient language to use. Therefore, we would like to use C as much as possible and only assembly where it make sense.</p>
+<p>This chapter will show you how to use C instead of assembly code as the programming language for the OS. Assembly is very good for interacting with the CPU and enables maximum control over every aspect of the code. However, at least for the authors, C is a much more convenient language to use. Therefore, we would like to use C as much as possible and use assembly code only where it make sense.</p>
 <h2 id="setting-up-a-stack"><a href="#TOC"><span class="header-section-number">3.1</span> Setting Up a Stack</a></h2>
-<p>One prerequisite for using C is a stack, since all non-trivial C programs use a stack. Setting up a stack is not harder than to make the <code>esp</code> register point to the end of an area of free memory (remember that the stack grow towards lower addresses) that is correctly aligned (alignment on 4 bytes is recommended from a performance perspective).</p>
-<p>We could point <code>esp</code> to a random area in memory since, so far, the only thing in the memory is GRUB, BIOS, the OS kernel and some memory-mapped I/O. This is not a good idea - we don’t know how much memory is available or if the area <code>esp</code> would point to is used by something else. A better idea is to reserve a piece of uninitialized memory in the <code>bss</code> section in the ELF executable of the kernel. It is better to use the <code>bss</code> section instead of the <code>data</code> section to reduce the size of the OS executable. Since GRUB understands ELF, GRUB will allocate any memory reserved in the <code>bss</code> section when loading the OS.</p>
-<p>The NASM pseudo-instruction <code>resb</code> <span class="citation">[22]</span> can be used to declare uninitialized data:</p>
+<p>One prerequisite for using C is a stack, since all non-trivial C programs use a stack. Setting up a stack is not harder than to make the <code>esp</code> register point to the end of an area of free memory (remember that the stack grows towards lower addresses on the x86) that is correctly aligned (alignment on 4 bytes is recommended from a performance perspective).</p>
+<p>We could point <code>esp</code> to a random area in memory since, so far, the only thing in the memory is GRUB, BIOS, the OS kernel and some memory-mapped I/O. This is not a good idea - we don’t know how much memory is available or if the area <code>esp</code> would point to is used by something else. A better idea is to reserve a piece of uninitialized memory in the <code>bss</code> section in the ELF file of the kernel. It is better to use the <code>bss</code> section instead of the <code>data</code> section to reduce the size of the OS executable. Since GRUB understands ELF, GRUB will allocate any memory reserved in the <code>bss</code> section when loading the OS.</p>
+<p>The NASM pseudo-instruction <code>resb</code> <span class="citation">[24]</span> can be used to declare uninitialized data:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    KERNEL_STACK_SIZE <span class="dt">equ</span> <span class="dv">4096</span>                  <span class="co">; size of stack in bytes</span>
 
     <span class="kw">section</span> .bss
     <span class="kw">align</span> <span class="dv">4</span>                                     <span class="co">; align at 4 bytes</span>
 <span class="fu">    kernel_stack:</span>                               <span class="co">; label points to beginning of memory</span>
         <span class="dt">resb</span> KERNEL_STACK_SIZE                  <span class="co">; reserve stack for the kernel</span></code></pre>
-<p>There is no need to worry about the use of uninitialized memory for the stack, since it is not possible to read a stack location that have not been written. A (correct) program can not pop an element from the stack without having pushed an element onto the stack. Therefore, the memory locations of the stack will always be written to before they are being read.</p>
+<p>There is no need to worry about the use of uninitialized memory for the stack, since it is not possible to read a stack location that has not been written (without manual pointer fiddling). A (correct) program can not pop an element from the stack without having pushed an element onto the stack first. Therefore, the memory locations of the stack will always be written to before they are being read.</p>
 <p>The stack pointer is then set up by pointing <code>esp</code> to the end of the <code>kernel_stack</code> memory:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">mov</span> <span class="kw">esp</span>, kernel_stack + KERNEL_STACK_SIZE   <span class="co">; point esp to the start of the</span>
                                                 <span class="co">; stack (end of memory area)</span></code></pre>
 <h2 id="calling-c-code-from-assembly"><a href="#TOC"><span class="header-section-number">3.2</span> Calling C Code From Assembly</a></h2>
-<p>The next step is to call a C function from assembly code. There are many different conventions for how to call C code from assembly <span class="citation">[23]</span>. This book uses the <em>cdecl</em> calling convention, since that is the one used by GCC. The cdecl calling convention states that arguments to a function should be passed via the stack (on x86). The arguments of the function should be pushed on the stack in a right-to-left order, that is, you push the rightmost argument first. The return value of the function is placed in the <code>eax</code> register. The following code shows an example:</p>
+<p>The next step is to call a C function from assembly code. There are many different conventions for how to call C code from assembly code <span class="citation">[25]</span>. This book uses the <em>cdecl</em> calling convention, since that is the one used by GCC. The cdecl calling convention states that arguments to a function should be passed via the stack (on x86). The arguments of the function should be pushed on the stack in a right-to-left order, that is, you push the rightmost argument first. The return value of the function is placed in the <code>eax</code> register. The following code shows an example:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="co">/* The C function */</span>
     <span class="dt">int</span> sum_of_three(<span class="dt">int</span> arg1, <span class="dt">int</span> arg2, <span class="dt">int</span> arg3)
     {
@@ -374,7 +385,7 @@ Commit: 7eda7b76fe841e724fd28138ca11ed73e42b504d
     <span class="kw">push</span> <span class="dt">dword</span> <span class="dv">1</span>            <span class="co">; arg1</span>
     <span class="kw">call</span> sum_of_three       <span class="co">; call the function, the result will be in eax</span></code></pre>
 <h3 id="packing-structs"><a href="#TOC"><span class="header-section-number">3.2.1</span> Packing Structs</a></h3>
-<p>In the rest of book, you will often come across “configuration bytes” that are a collection of bits in a very specific order. Below follows an example with 32 bits:</p>
+<p>In the rest of this book, you will often come across “configuration bytes” that are a collection of bits in a very specific order. Below follows an example with 32 bits:</p>
 <pre><code>Bit:     | 31     24 | 23          8 | 7     0 |
 Content: | index     | address       | config  |</code></pre>
 <p>Instead of using an unsigned integer, <code>unsigned int</code>, for handling such configurations, it is much more convenient to use “packed structures”:</p>
@@ -383,7 +394,7 @@ Content: | index     | address       | config  |</code></pre>
         <span class="dt">unsigned</span> <span class="dt">short</span> address; <span class="co">/* bit 8 - 23  */</span>
         <span class="dt">unsigned</span> <span class="dt">char</span> index;    <span class="co">/* bit 24 - 31 */</span>
     };</code></pre>
-<p>When using the struct in the previous example there is no guarantee that the size of the <code>struct</code> will be exactly 32 bits - the compiler can add some padding between elements for various reasons, for example to speed up element access or due to requirements set by the operating system. When using a <code>struct</code> to represent configuration bytes, it is very important that the compiler does <em>not</em> add any padding, because the struct will eventually be treated as a 32 bit unsigned integer by the hardware. The attribute <code>packed</code> can be used to force GCC to <em>not</em> add any padding:</p>
+<p>When using the <code>struct</code> in the previous example there is no guarantee that the size of the <code>struct</code> will be exactly 32 bits - the compiler can add some padding between elements for various reasons, for example to speed up element access or due to requirements set by the hardware and/or compiler. When using a <code>struct</code> to represent configuration bytes, it is very important that the compiler does <em>not</em> add any padding, because the <code>struct</code> will eventually be treated as a 32 bit unsigned integer by the hardware. The attribute <code>packed</code> can be used to force GCC to <em>not</em> add any padding:</p>
 <pre class="sourceCode C"><code class="sourceCode c">    <span class="kw">struct</span> example {
         <span class="dt">unsigned</span> <span class="dt">char</span> config;   <span class="co">/* bit 0 - 7   */</span>
         <span class="dt">unsigned</span> <span class="dt">short</span> address; <span class="co">/* bit 8 - 23  */</span>
@@ -399,7 +410,7 @@ Content: | index     | address       | config  |</code></pre>
 <pre><code>    -Wall -Wextra -Werror</code></pre>
 <p>You can now create a function <code>kmain</code> in a file called <code>kmain.c</code> that you call from <code>loader.s</code>. At this point, <code>kmain</code> probably won’t need any arguments (but in later chapters it will).</p>
 <h2 id="build-tools"><a href="#TOC"><span class="header-section-number">3.4</span> Build Tools</a></h2>
-<p>Now is also probably a good time to set up some build tools to make it easier to compile and test-run the OS. We recommend using <code>make</code> <span class="citation">[11]</span>, but there are plenty of other build systems available. A simple Makefile for the OS could look like the following example:</p>
+<p>Now is also probably a good time to set up some build tools to make it easier to compile and test-run the OS. We recommend using <code>make</code> <span class="citation">[13]</span>, but there are plenty of other build systems available. A simple Makefile for the OS could look like the following example:</p>
 <pre class="sourceCode Makefile"><code class="sourceCode makefile">    <span class="dt">OBJECTS </span><span class="st">= loader.o kmain.o</span>
     <span class="dt">CC </span><span class="st">= gcc</span>
     <span class="dt">CFLAGS </span><span class="st">= -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector </span><span class="ch">\</span>
@@ -448,24 +459,24 @@ Content: | index     | address       | config  |</code></pre>
     |-- kmain.c
     |-- loader.s
     |-- Makefile</code></pre>
-<p>You should be now able to start the OS in Bochs with the simple command <code>make run</code>.</p>
+<p>You should now be able to start the OS with the simple command <code>make run</code>, which will compile the kernel and boot it up in Bochs (as defined in the Makefile above).</p>
 <h2 id="further-reading-1"><a href="#TOC"><span class="header-section-number">3.5</span> Further Reading</a></h2>
 <ul>
-<li>Kernigan &amp; Richie’s book, <em>The C Programming Language, Second Edition</em>, <span class="citation">[6]</span> is great for learning about all the aspects of C.</li>
+<li>Kernigan &amp; Richie’s book, <em>The C Programming Language, Second Edition</em>, <span class="citation">[8]</span> is great for learning about all the aspects of C.</li>
 </ul>
 <h1 id="output"><a href="#TOC"><span class="header-section-number">4</span> Output</a></h1>
-<p>This chapter will present how to display text on the console as well as writing data to the serial port. Furthermore, we will create our first <em>driver</em>, that is, code that acts as a layer between the kernel and the hardware, providing a higher abstraction than communicating directly with the hardware. The first part of this chapter is about creating a driver for the <em>framebuffer</em> <span class="citation">[24]</span> to be able to display text on the console. The second part shows how to create a driver for the serial port. Bochs can store output from the serial port in a file, effectively creating a logging mechanism for the operating system!</p>
+<p>This chapter will present how to display text on the console as well as writing data to the serial port. Furthermore, we will create our first <em>driver</em>, that is, code that acts as a layer between the kernel and the hardware, providing a higher abstraction than communicating directly with the hardware. The first part of this chapter is about creating a driver for the <em>framebuffer</em> <span class="citation">[26]</span> to be able to display text on the console. The second part shows how to create a driver for the serial port. Bochs can store output from the serial port in a file, effectively creating a logging mechanism for the operating system.</p>
 <h2 id="interacting-with-the-hardware"><a href="#TOC"><span class="header-section-number">4.1</span> Interacting with the Hardware</a></h2>
 <p>There are usually two different ways to interact with the hardware, <em>memory-mapped I/O</em> and <em>I/O ports</em>.</p>
-<p>If the hardware uses memory-mapped I/O then you can write to a specific memory address and the hardware will be updated with the new data. One example of this is the framebuffer, which will be discussed in more detail later. For example, if you write the value <code>0x410F</code> to address <code>0x000B8000</code> <span class="citation">[25]</span>, you will see the letter A in white color on a black background (see the section on <a href="#the-framebuffer">the framebuffer</a> for more details).</p>
-<p>If the hardware uses I/O ports then the assembly instructions <code>out</code> and <code>in</code> must be used to communicate with the hardware. The instruction <code>out</code> takes two parameters: the address of the I/O port and the data to send. The instruction <code>in</code> takes a single parameter, the address of the I/O port, and returns data from the hardware. One can think of I/O ports as communicating with hardware the same way as you communicate with a server using sockets. The cursor (the blinking rectangle) of the framebuffer is one example of hardware controlled via I/O ports on a PC.</p>
+<p>If the hardware uses memory-mapped I/O then you can write to a specific memory address and the hardware will be updated with the new data. One example of this is the framebuffer, which will be discussed in more detail later. For example, if you write the value <code>0x410F</code> to address <code>0x000B8000</code>, you will see the letter A in white color on a black background (see the section on <a href="#the-framebuffer">the framebuffer</a> for more details).</p>
+<p>If the hardware uses I/O ports then the assembly code instructions <code>out</code> and <code>in</code> must be used to communicate with the hardware. The instruction <code>out</code> takes two parameters: the address of the I/O port and the data to send. The instruction <code>in</code> takes a single parameter, the address of the I/O port, and returns data from the hardware. One can think of I/O ports as communicating with hardware the same way as you communicate with a server using sockets. The cursor (the blinking rectangle) of the framebuffer is one example of hardware controlled via I/O ports on a PC.</p>
 <h2 id="the-framebuffer"><a href="#TOC"><span class="header-section-number">4.2</span> The Framebuffer</a></h2>
-<p>The framebuffer is a hardware device that is capable of displaying a buffer of memory on the screen <span class="citation">[24]</span>. The framebuffer has 80 columns and 25 rows, and their indices start at 0 (so rows are labelled 0 - 24).</p>
+<p>The framebuffer is a hardware device that is capable of displaying a buffer of memory on the screen <span class="citation">[26]</span>. The framebuffer has 80 columns and 25 rows, and the row and column indices start at 0 (so rows are labelled 0 - 24).</p>
 <h3 id="writing-text"><a href="#TOC"><span class="header-section-number">4.2.1</span> Writing Text</a></h3>
-<p>Writing text to the console via the framebuffer is done with memory-mapped I/O. The starting address of the memory-mapped I/O for the framebuffer is <code>0x000B8000</code> <span class="citation">[25]</span>. The memory is divided into 16 bit cells, where the 16 bits determines both the character, the foreground color and the background color. The highest eight bits is the ASCII <span class="citation">[26]</span> value of the character, bit 7 - 4 the background and bit 3 - 0 the foreground, as can be seen in the following figure:</p>
+<p>Writing text to the console via the framebuffer is done with memory-mapped I/O. The starting address of the memory-mapped I/O for the framebuffer is <code>0x000B8000</code> <span class="citation">[27]</span>. The memory is divided into 16 bit cells, where the 16 bits determine both the character, the foreground color and the background color. The highest eight bits is the ASCII <span class="citation">[28]</span> value of the character, bit 7 - 4 the background and bit 3 - 0 the foreground, as can be seen in the following figure:</p>
 <pre><code>Bit:     | 15 14 13 12 11 10 9 8 | 7 6 5 4 | 3 2 1 0 |
 Content: | ASCII                 | FG      | BG      |</code></pre>
-<p>The available colors are show in the following table:</p>
+<p>The available colors are shown in the following table:</p>
 <table>
 <thead>
 <tr class="header">
@@ -522,7 +533,7 @@ Content: | ASCII                 | FG      | BG      |</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The first cell corresponds to row zero, column zero on the console. Using an ASCII table, one can see that A corresponds to 65 or <code>0x41</code>. Therefore, to write the character A with a green foreground (2) and dark grey background (8) at place (0,0), the following assembly instruction is used:</p>
+<p>The first cell corresponds to row zero, column zero on the console. Using an ASCII table, one can see that A corresponds to 65 or <code>0x41</code>. Therefore, to write the character A with a green foreground (2) and dark grey background (8) at place (0,0), the following assembly code instruction is used:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">mov</span> [<span class="bn">0x000B8000</span>]<span class="bn">, 0x4128</span></code></pre>
 <p>The second cell then corresponds to row zero, column one and its address is therefore:</p>
 <pre><code>    0x000B8000 + 16 = 0x000B8010</code></pre>
@@ -550,13 +561,13 @@ Content: | ASCII                 | FG      | BG      |</code></pre>
 
     fb_write_cell(<span class="dv">0</span>, &#39;A&#39;, FB_GREEN, FB_DARK_GREY);</code></pre>
 <h3 id="moving-the-cursor"><a href="#TOC"><span class="header-section-number">4.2.2</span> Moving the Cursor</a></h3>
-<p>Moving the cursor of the framebuffer is done via two different I/O ports. The cursor’s position is determined with a 16 bits integer: 0 means row zero, column zero; 1 means row zero, column one; 80 means row one, column zero and so on. Since the position is 16 bits large, and the <code>out</code> assembly instruction argument is 8 bits, the position must be sent in two turns, first 8 bits then the next 8 bits. The framebuffer has two I/O ports, one for accepting the data, and one for describing the data being received. Port <code>0x3D4</code> <span class="citation">[27]</span> is the port that describes the data and port <code>0x3D5</code> <span class="citation">[27]</span> is for the data itself.</p>
-<p>To set the cursor at row one, column zero (position <code>80 = 0x0050</code>), one would use the following assembly instructions:</p>
+<p>Moving the cursor of the framebuffer is done via two different I/O ports. The cursor’s position is determined with a 16 bits integer: 0 means row zero, column zero; 1 means row zero, column one; 80 means row one, column zero and so on. Since the position is 16 bits large, and the <code>out</code> assembly code instruction argument is 8 bits, the position must be sent in two turns, first 8 bits then the next 8 bits. The framebuffer has two I/O ports, one for accepting the data, and one for describing the data being received. Port <code>0x3D4</code> <span class="citation">[29]</span> is the port that describes the data and port <code>0x3D5</code> <span class="citation">[29]</span> is for the data itself.</p>
+<p>To set the cursor at row one, column zero (position <code>80 = 0x0050</code>), one would use the following assembly code instructions:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">out</span> <span class="bn">0x3D4</span>, <span class="dv">14</span>      <span class="co">; 14 tells the framebuffer to expect the highest 8 bits of the position</span>
     <span class="kw">out</span> <span class="bn">0x3D5, 0x00    </span><span class="co">; sending the highest 8 bits of 0x0050</span>
     <span class="kw">out</span> <span class="bn">0x3D4</span>, <span class="dv">15</span>      <span class="co">; 15 tells the framebuffer to expect the lowest 8 bits of the position</span>
     <span class="kw">out</span> <span class="bn">0x3D5, 0x50    </span><span class="co">; sending the lowest 8 bits of 0x0050</span></code></pre>
-<p>The <code>out</code> assembly instruction can’t be done in C. Therefore it is a good idea to wrap <code>out</code> in an assembly function which can be accessed from C via the cdecl calling standard <span class="citation">[23]</span>:</p>
+<p>The <code>out</code> assembly code instruction can’t be executed directly in C. Therefore it is a good idea to wrap <code>out</code> in a function in assembly code which can be accessed from C via the cdecl calling standard <span class="citation">[25]</span>:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">global</span> outb             <span class="co">; make the label outb visible outside this file</span>
 
     <span class="co">; outb - send a byte to an I/O port</span>
@@ -568,7 +579,7 @@ Content: | ASCII                 | FG      | BG      |</code></pre>
         <span class="kw">mov</span> <span class="kw">dx</span>, [<span class="kw">esp</span> + <span class="dv">4</span>]    <span class="co">; move the address of the I/O port into the dx register</span>
         <span class="kw">out</span> <span class="kw">dx</span>, <span class="kw">al</span>           <span class="co">; send the data to the I/O port</span>
         <span class="kw">ret</span>                  <span class="co">; return to the calling function</span></code></pre>
-<p>By storing this function in a file called <code>io.s</code> and also creating a header <code>io.h</code>, the <code>out</code> assembly instruction can be conveniently accessed from C:</p>
+<p>By storing this function in a file called <code>io.s</code> and also creating a header <code>io.h</code>, the <code>out</code> assembly code instruction can be conveniently accessed from C:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="ot">#ifndef INCLUDE_IO_H</span>
     <span class="ot">#define INCLUDE_IO_H</span>
 
@@ -609,7 +620,7 @@ Content: | ASCII                 | FG      | BG      |</code></pre>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="dt">int</span> write(<span class="dt">char</span> *buf, <span class="dt">unsigned</span> <span class="dt">int</span> len);</code></pre>
 <p>The <code>write</code> function writes the contents of the buffer <code>buf</code> of length <code>len</code> to the screen. The <code>write</code> function should automatically advance the cursor after a character has been written and scroll the screen if necessary.</p>
 <h2 id="the-serial-ports"><a href="#TOC"><span class="header-section-number">4.3</span> The Serial Ports</a></h2>
-<p>The serial port <span class="citation">[28]</span> is an interface for communicating between hardware devices and although it is available on almost all motherboards, it is seldom exposed to the user in the form of a DE-9 connector nowadays. The serial port is easy to use, and, more importantly, it can be used as a logging utility in Bochs. If a computer has support for a serial port, then it usually has support for multiple serial ports, but we will only make use of one of the ports. This is because we will only use the serial ports for logging. Furthermore, we will only use the serial ports for output, not input. The serial ports are completely controlled via I/O ports.</p>
+<p>The serial port <span class="citation">[30]</span> is an interface for communicating between hardware devices and although it is available on almost all motherboards, it is seldom exposed to the user in the form of a DE-9 connector nowadays. The serial port is easy to use, and, more importantly, it can be used as a logging utility in Bochs. If a computer has support for a serial port, then it usually has support for multiple serial ports, but we will only make use of one of the ports. This is because we will only use the serial ports for logging. Furthermore, we will only use the serial ports for output, not input. The serial ports are completely controlled via I/O ports.</p>
 <h3 id="configuring-the-serial-port"><a href="#TOC"><span class="header-section-number">4.3.1</span> Configuring the Serial Port</a></h3>
 <p>The first data that need to be sent to the serial port is configuration data. In order for two hardware devices to be able to talk to each other they must agree upon a couple of things. These things include:</p>
 <ul>
@@ -666,7 +677,7 @@ Content: | ASCII                 | FG      | BG      |</code></pre>
 <p>The way that data should be sent must be configured. This is also done via the line command port by sending a byte. The layout of the 8 bits looks like the following:</p>
 <pre><code>Bit:     | 7 | 6 | 5 4 3 | 2 | 1 0 |
 Content: | d | b | prty  | s | dl  |</code></pre>
-<p>A description for each name can be found in the table below:</p>
+<p>A description for each name can be found in the table below (and in <span class="citation">[31]</span>):</p>
 <table>
 <thead>
 <tr class="header">
@@ -697,7 +708,7 @@ Content: | d | b | prty  | s | dl  |</code></pre>
 </tr>
 </tbody>
 </table>
-<p>We will use the mostly standard value <code>0x03</code> <span class="citation">[29]</span>, meaning a length of 8 bits, no parity bit, one stop bit and break control disabled. This is sent to the line command port, as seen in the following example:</p>
+<p>We will use the mostly standard value <code>0x03</code> <span class="citation">[31]</span>, meaning a length of 8 bits, no parity bit, one stop bit and break control disabled. This is sent to the line command port, as seen in the following example:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="co">/** </span>serial_configure_line:
      *  Configures the line of the given serial port. The port is set to have a
      *  data length of <span class="dv">8</span> bits, no parity bits, one stop bit and <span class="kw">break</span> control
@@ -713,7 +724,7 @@ Content: | d | b | prty  | s | dl  |</code></pre>
 <span class="co">         */</span>
         outb(SERIAL_LINE_COMMAND_PORT(com), <span class="bn">0x03</span>);
     }</code></pre>
-<p>The article on OSDev <span class="citation">[29]</span> has a more in-depth explanation of the values.</p>
+<p>The article on OSDev <span class="citation">[31]</span> has a more in-depth explanation of the values.</p>
 <h3 id="configuring-the-buffers"><a href="#TOC"><span class="header-section-number">4.3.3</span> Configuring the Buffers</a></h3>
 <p>When data is transmitted via the serial port it is placed in buffers, both when receiving and sending data. This way, if you send data to the serial port faster than it can send it over the wire, it will be buffered. However, if you send too much data too fast the buffer will be full and data will be lost. In other words, the buffers are FIFO queues. The FIFO queue configuration byte looks like the following figure:</p>
 <pre><code>Bit:     | 7 6 | 5  | 4 | 3   | 2   | 1   | 0 |
@@ -733,11 +744,11 @@ Content: | lvl | bs | r | dma | clt | clr | e |</code></pre>
 </tr>
 <tr class="even">
 <td align="right">bs</td>
-<td align="left">If the buffers should 16 or 64 bytes large</td>
+<td align="left">If the buffers should be 16 or 64 bytes large</td>
 </tr>
 <tr class="odd">
 <td align="right">r</td>
-<td align="left">Reserved</td>
+<td align="left">Reserved for future use</td>
 </tr>
 <tr class="even">
 <td align="right">dma</td>
@@ -763,7 +774,7 @@ Content: | lvl | bs | r | dma | clt | clr | e |</code></pre>
 <li>Clear both receiver and transmission FIFO queues</li>
 <li>Use 14 bytes as size of queue</li>
 </ul>
-<p>The WikiBook on serial programming <span class="citation">[30]</span> explains the values in more depth.</p>
+<p>The WikiBook on serial programming <span class="citation">[32]</span> explains the values in more depth.</p>
 <h3 id="configuring-the-modem"><a href="#TOC"><span class="header-section-number">4.3.4</span> Configuring the Modem</a></h3>
 <p>The modem control register is used for very simple hardware flow control via the Ready To Transmit (RTS) and Data Terminal Ready (DTR) pins. When configuring the serial port we want RTS and DTR to be 1, which means that we are ready to send data.</p>
 <p>The modem configuration byte is shown in the following figure:</p>
@@ -811,7 +822,7 @@ Content: | r | r | af | lb | ao2 | ao1 | rts | dtr |</code></pre>
 <p>We don’t need to enable interrupts, because we won’t handle any received data. Therefore we use the configuration value <code>0x03 = 00000011</code> (RTS = 1 and DTS = 1).</p>
 <h3 id="writing-data-to-the-serial-port"><a href="#TOC"><span class="header-section-number">4.3.5</span> Writing Data to the Serial Port</a></h3>
 <p>Writing data to the serial port is done via the data I/O port. However, before writing, the transmit FIFO queue has to be empty (all previous writes must have finished). The transmit FIFO queue is empty if bit 5 of the line status I/O port is equal to one.</p>
-<p>Reading the contents of an I/O port is done via the <code>in</code> assembly instruction. There is no way to use the <code>in</code> assembly instruction from C, therefore it has to be wrapped (the same way as the <code>out</code> assembly instruction):</p>
+<p>Reading the contents of an I/O port is done via the <code>in</code> assembly code instruction. There is no way to use the <code>in</code> assembly code instruction from C, therefore it has to be wrapped (the same way as the <code>out</code> assembly code instruction):</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">global</span> inb
 
     <span class="co">; inb - returns a byte from the given I/O port</span>
@@ -853,7 +864,7 @@ Content: | r | r | af | lb | ao2 | ao1 | rts | dtr |</code></pre>
 <p>The output from serial port one will now be stored in the file <code>com1.out</code>.</p>
 <h3 id="the-driver-1"><a href="#TOC"><span class="header-section-number">4.3.7</span> The Driver</a></h3>
 <p>We recommend that you implement a <code>write</code> function for the serial port similar to the <code>write</code> function in the driver for the framebuffer. To avoid name clashes with the <code>write</code> function for the framebuffer it is a good idea to name the functions <code>fb_write</code> and <code>serial_write</code> to distinguish them.</p>
-<p>We further recommend that you try to write a <code>printf</code>-like function, see section 7.3 in <span class="citation">[6]</span>. The <code>printf</code> function could take an additional argument to decide to which device to write the output (framebuffer or serial).</p>
+<p>We further recommend that you try to write a <code>printf</code>-like function, see section 7.3 in <span class="citation">[8]</span>. The <code>printf</code> function could take an additional argument to decide to which device to write the output (framebuffer or serial).</p>
 <p>A final recommendation is that you create some way of distinguishing the severeness of the log messages, for example by prepending the messages with <code>DEBUG</code>, <code>INFO</code> or <code>ERROR</code>.</p>
 <h2 id="further-reading-2"><a href="#TOC"><span class="header-section-number">4.4</span> Further Reading</a></h2>
 <ul>
@@ -865,7 +876,8 @@ Content: | r | r | af | lb | ao2 | ao1 | rts | dtr |</code></pre>
 <div class="figure">
 <img src="images/intel_3_5_logical_to_linear.png" alt="Translation of logical addresses to linear addresses." /><p class="caption">Translation of logical addresses to linear addresses.</p>
 </div>
-<p>To enable segmentation you need to set up a table that describes each segment - a <em>segment descriptor table</em>. In x86, there are two types of descriptor tables: the <em>Global Descriptor Table</em> (GDT) and <em>Local Descriptor Tables</em> (LDT). An LDT is set up and managed by user-space processes, and each process have their own LDT. LDTs can be used if a more complex segmentation model is desired - we won’t use it. The GDT is shared by everyone - it’s global.</p>
+<p>To enable segmentation you need to set up a table that describes each segment - a <em>segment descriptor table</em>. In x86, there are two types of descriptor tables: the <em>Global Descriptor Table</em> (GDT) and <em>Local Descriptor Tables</em> (LDT). An LDT is set up and managed by user-space processes, and all processes have their own LDT. LDTs can be used if a more complex segmentation model is desired - we won’t use it. The GDT is shared by everyone - it’s global.</p>
+<p>As we discuss in the sections on virtual memory and paging, segmentation is rarely used more than in a minimal setup, similar to what we do below.</p>
 <h2 id="accessing-memory"><a href="#TOC"><span class="header-section-number">5.1</span> Accessing Memory</a></h2>
 <p>Most of the time when accessing memory there is no need to explicitly specify the segment to use. The processor has six 16-bit segment registers: <code>cs</code>, <code>ss</code>, <code>ds</code>, <code>es</code>, <code>gs</code> and <code>fs</code>. The register <code>cs</code> is the code segment register and specifies the segment to use when fetching instructions. The register <code>ss</code> is used whenever accessing the stack (through the stack pointer <code>esp</code>), and <code>ds</code> is used for other data accesses. The OS is free to use the registers <code>es</code>, <code>gs</code> and <code>fs</code> however it want.</p>
 <p>Below is an example showing implicit use of the segment registers:</p>
@@ -883,10 +895,10 @@ Content: | r | r | af | lb | ao2 | ao1 | rts | dtr |</code></pre>
         <span class="kw">mov</span> [<span class="kw">ds</span>:<span class="kw">eax</span>], <span class="kw">ebx</span>
         <span class="kw">ret</span></code></pre>
 <p>You don’t need to use <code>ss</code> for storing the stack segment selector, or <code>ds</code> for the data segment selector. You could store the stack segment selector in <code>ds</code> and vice versa. However, in order to use the implicit style shown above, you must store the segment selectors in their indented registers.</p>
-<p>Segment descriptors and their fields are described in figure 3-8 in the Intel manual <span class="citation">[31]</span>.</p>
+<p>Segment descriptors and their fields are described in figure 3-8 in the Intel manual <span class="citation">[33]</span>.</p>
 <h2 id="the-global-descriptor-table-gdt"><a href="#TOC"><span class="header-section-number">5.2</span> The Global Descriptor Table (GDT)</a></h2>
 <p>A GDT/LDT is an array of 8-byte segment descriptors. The first descriptor in the GDT is always a null descriptor and can never be used to access memory. At least two segment descriptors (plus the null descriptor) are needed for the GDT, because the descriptor contains more information than just the base and limit fields. The two most relevant fields for us are the <em>Type</em> field and the <em>Descriptor Privilege Level</em> (DPL) field.</p>
-<p>Table 3-1 in chapter 3 of the Intel manual <span class="citation">[31]</span> specifies the values for the Type field. The table shows that the Type field can’t be both writable <em>and</em> executable at the same time. Therefore, two segments are needed: one segment for executing code to put in <code>cs</code> (Type is Execute-only or Execute-Read) and one segment for reading and writing data (Type is Read/Write) to put in the other segment registers.</p>
+<p>Table 3-1 in chapter 3 of the Intel manual <span class="citation">[33]</span> specifies the values for the Type field. The table shows that the Type field can’t be both writable <em>and</em> executable at the same time. Therefore, two segments are needed: one segment for executing code to put in <code>cs</code> (Type is Execute-only or Execute-Read) and one segment for reading and writing data (Type is Read/Write) to put in the other segment registers.</p>
 <p>The DPL specifies the <em>privilege levels</em> required to use the segment. x86 allows for four privilege levels (PL), 0 to 3, where PL0 is the most privileged. In most operating systems (eg. Linux and Windows), only PL0 and PL3 are used. However, some operating system, such as MINIX, make use of all levels. The kernel should be able to do anything, therefore it uses segments with DPL set to 0 (also called kernel mode). The current privilege level (CPL) is determined by the segment selector in <code>cs</code>.</p>
 <p>The segments needed are described in the table below.</p>
 <table>
@@ -928,16 +940,16 @@ Content: | r | r | af | lb | ao2 | ao1 | rts | dtr |</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Note that the segments overlap - they both encompass the entire linear address space. In our minimal setup we’ll only use segmentation to get privilege levels. See the Intel manual <span class="citation">[31]</span>, chapter 3, for details on the other descriptor fields.</p>
+<p>Note that the segments overlap - they both encompass the entire linear address space. In our minimal setup we’ll only use segmentation to get privilege levels. See the Intel manual <span class="citation">[33]</span>, chapter 3, for details on the other descriptor fields.</p>
 <h2 id="loading-the-gdt"><a href="#TOC"><span class="header-section-number">5.3</span> Loading the GDT</a></h2>
-<p>Loading the GDT into the processor is done with the <code>lgdt</code> assembly instruction, which takes the address of a struct that specifies the start and size of the GDT. It is easiest to encode this information using a <a href="#packing-structs">“packed struct”</a> as shown in the following example:</p>
+<p>Loading the GDT into the processor is done with the <code>lgdt</code> assembly code instruction, which takes the address of a struct that specifies the start and size of the GDT. It is easiest to encode this information using a <a href="#packing-structs">“packed struct”</a> as shown in the following example:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="kw">struct</span> gdt {
         <span class="dt">unsigned</span> <span class="dt">int</span> address;
         <span class="dt">unsigned</span> <span class="dt">short</span> size;
     } __attribute__((packed));</code></pre>
 <p>If the content of the <code>eax</code> register is the address to such a struct, then the GDT can be loaded with the assembly code shown below:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">lgdt</span> [<span class="kw">eax</span>]</code></pre>
-<p>It might be easier if you make this instruction available from C, the same way as was done with the assembly instructions <code>in</code> and <code>out</code>.</p>
+<p>It might be easier if you make this instruction available from C, the same way as was done with the assembly code instructions <code>in</code> and <code>out</code>.</p>
 <p>After the GDT has been loaded the segment registers needs to be loaded with their corresponding segment selectors. The content of a segment selector is described in the figure and table below:</p>
 <pre><code>Bit:     | 15                                3 | 2  | 1 0 |
 Content: | offset (index)                      | ti | rpl |</code></pre>
@@ -983,12 +995,12 @@ Content: | offset (index)                      | ti | rpl |</code></pre>
 <p>A far jump is a jump where we explicitly specify the full 48-bit logical address: the segment selector to use and the absolute address to jump to. It will first set <code>cs</code> to <code>0x08</code> and then jump to <code>flush_cs</code> using its absolute address.</p>
 <h2 id="further-reading-3"><a href="#TOC"><span class="header-section-number">5.4</span> Further Reading</a></h2>
 <ul>
-<li>Chapter 3 of the Intel manual <span class="citation">[31]</span> is filled with low-level and technical details about segmentation.</li>
+<li>Chapter 3 of the Intel manual <span class="citation">[33]</span> is filled with low-level and technical details about segmentation.</li>
 <li>The OSDev wiki has a page about segmentation: <a href="http://wiki.osdev.org/Segmentation"><code class="url">http://wiki.osdev.org/Segmentation</code></a></li>
 <li>The Wikipedia page on x86 segmentation might be worth looking into: <a href="http://en.wikipedia.org/wiki/X86_memory_segmentation"><code class="url">http://en.wikipedia.org/wiki/X86_memory_segmentation</code></a></li>
 </ul>
 <h1 id="interrupts-and-input"><a href="#TOC"><span class="header-section-number">6</span> Interrupts and Input</a></h1>
-<p>Now that the OS can produce <em>output</em> it would be nice if it also could get some <em>input</em>. (The operating system must be able to handle <em>interrupts</em> in order to read information from the keyboard). An interrupt occurs when a hardware device, such as the keyboard, the serial port or the timer, signals the CPU that the state of the device has changed. The CPU itself can also send interrupts due to program errors, for example when a program references memory it doesn’t has access to, or when a program divides a number by zero. Finally, there are also <em>software intterupts</em>, which are interrupts that are caused by the <code>int</code> assembly instruction, and they are often used for system calls.</p>
+<p>Now that the OS can produce <em>output</em> it would be nice if it also could get some <em>input</em>. (The operating system must be able to handle <em>interrupts</em> in order to read information from the keyboard). An interrupt occurs when a hardware device, such as the keyboard, the serial port or the timer, signals the CPU that the state of the device has changed. The CPU itself can also send interrupts due to program errors, for example when a program references memory it doesn’t have access to, or when a program divides a number by zero. Finally, there are also <em>software intterupts</em>, which are interrupts that are caused by the <code>int</code> assembly code instruction, and they are often used for system calls.</p>
 <h2 id="interrupts-handlers"><a href="#TOC"><span class="header-section-number">6.1</span> Interrupts Handlers</a></h2>
 <p>Interrupts are handled via the <em>Interrupt Descriptor Table</em> (IDT). The IDT describes a handler for each interrupt. The interrupts are numbered (0 - 255) and the handler for interrupt <em>i</em> is defined at the <em>ith</em> position in the table. There are three different kinds of handlers for interrupts:</p>
 <ul>
@@ -996,7 +1008,7 @@ Content: | offset (index)                      | ti | rpl |</code></pre>
 <li>Interrupt handler</li>
 <li>Trap handler</li>
 </ul>
-<p>The task handler uses Intel specific functionality, so they won’t be covered here (see the Intel manual <span class="citation">[31]</span>, chapter 6, for more info). The only difference between an interrupt handler and a trap handler is that the interrupt handler disables interrupts, which mean you can’t get an interrupt while at the same time handling an interrupt. In this book, we will use trap handlers and disable interrupts manually when we need to.</p>
+<p>The task handlers use functionality specific to the Intel version of x86, so they won’t be covered here (see the Intel manual <span class="citation">[33]</span>, chapter 6, for more info). The only difference between an interrupt handler and a trap handler is that the interrupt handler disables interrupts, which means you cannot get an interrupt while at the same time handling an interrupt. In this book, we will use trap handlers and disable interrupts manually when we need to.</p>
 <h2 id="creating-an-entry-in-the-idt"><a href="#TOC"><span class="header-section-number">6.2</span> Creating an Entry in the IDT</a></h2>
 <p>An entry in the IDT for an interrupt handler consists of 64 bits. The highest 32 bits are shown in the figure below:</p>
 <pre><code>Bit:     | 31              16 | 15 | 14 13 | 12 | 11 | 10 9 8 | 7 6 5 | 4 3 2 1 0 |
@@ -1043,7 +1055,7 @@ Content: | segment selector   | offset low        |</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The offset is a pointer to code (preferably an assembly label). For example, to create an entry for a handler which code starts at <code>0xDEADBEEF</code> and that runs in privilege level 0 (therefore using the same code segment selector as the kernel) the following two bytes would be used:</p>
+<p>The offset is a pointer to code (preferably an assembly code label). For example, to create an entry for a handler whose code starts at <code>0xDEADBEEF</code> and that runs in privilege level 0 (therefore using the same code segment selector as the kernel) the following two bytes would be used:</p>
 <pre><code>    0xDEAD8E00
     0x0008BEEF</code></pre>
 <p>If the IDT is represented as an <code>unsigned integer idt[512]</code> then to register the above example as an handler for interrupt 0 (divide-by-zero), the following code would be used:</p>
@@ -1051,14 +1063,14 @@ Content: | segment selector   | offset low        |</code></pre>
     idt[<span class="dv">1</span>] = <span class="bn">0x0008BEEF</span></code></pre>
 <p>As written in the chapter <a href="#getting-to-c">“Getting to C”</a>, we recommend that you instead of using bytes (or unsigned integers) use packed structures to make the code more readable.</p>
 <h2 id="handling-an-interrupt"><a href="#TOC"><span class="header-section-number">6.3</span> Handling an Interrupt</a></h2>
-<p>When an interrupt occurs the CPU will push information about the interrupt onto the stack, then look up the appropriate interrupt hander in the IDT and jump to it. The stack at the time of the interrupt will look like the following:</p>
+<p>When an interrupt occurs the CPU will push some information about the interrupt onto the stack, then look up the appropriate interrupt hander in the IDT and jump to it. The stack at the time of the interrupt will look like the following:</p>
 <pre><code>    [esp + 12] eflags
     [esp + 8]  cs
     [esp + 4]  eip
     [esp]      error code?</code></pre>
-<p>The reason for the question mark behind error code is that not all interrupts create an error code. The specific CPU interrupts that put an error code on the stack are 8, 10, 11, 12, 13, 14 and 17.</p>
+<p>The reason for the question mark behind error code is that not all interrupts create an <em>error code</em>. The specific CPU interrupts that put an error code on the stack are 8, 10, 11, 12, 13, 14 and 17. The error code can be used by the interrupt handler to get more information on what has happened. Also, note that the interrupt <em>number</em> is <em>not</em> pushed onto the stack. We can only determine what interrupt has occurred by knowing what code is executing - if the handler registered for interrupt 17 is executing, then interrupt 17 has occurred.</p>
 <p>Once the interrupt handler is done, it uses the <code>iret</code> instruction to return. The instruction <code>iret</code> expects the stack to be the same as at the time of the interrupt (see the figure above). Therefore, any values pushed onto the stack by the interrupt handler must be popped. Before returning, <code>iret</code> restores <code>eflags</code> by popping the value from the stack and then finally jumps to <code>cs:eip</code> as specified by the values on the stack.</p>
-<p>The interrupt handler has to be written in assembly, since all registers that the interrupt handlers uses must be preserved by pushing them onto the stack. This is because the code that was interrupted doesn’t know about the interrupt and will therefore expect that its registers stay the same. Writing all the logic of the interrupt handler in assembly will be tiresome. Creating an assembly handler that saves the registers, calls a C function, restores the registers and finally executes <code>iret</code> is a good idea!</p>
+<p>The interrupt handler has to be written in assembly code, since all registers that the interrupt handlers use must be preserved by pushing them onto the stack. This is because the code that was interrupted doesn’t know about the interrupt and will therefore expect that its registers stay the same. Writing all the logic of the interrupt handler in assembly code will be tiresome. Creating a handler in assembly code that saves the registers, calls a C function, restores the registers and finally executes <code>iret</code> is a good idea!</p>
 <p>The C handler should get the state of the registers, the state of the stack and the number of the interrupt as arguments. The following definitions can for example be used:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="kw">struct</span> cpu_state {
         <span class="dt">unsigned</span> <span class="dt">int</span> eax;
@@ -1079,7 +1091,7 @@ Content: | segment selector   | offset low        |</code></pre>
 
     <span class="dt">void</span> interrupt_handler(<span class="kw">struct</span> cpu_state cpu, <span class="kw">struct</span> stack_state stack, <span class="dt">unsigned</span> <span class="dt">int</span> interrupt);</code></pre>
 <h2 id="creating-a-generic-interrupt-handler"><a href="#TOC"><span class="header-section-number">6.4</span> Creating a Generic Interrupt Handler</a></h2>
-<p>The CPU does <em>not</em> push the interrupt number on the stack, therefore it is a little tricky to write a generic interrupt handler. This section will use macros to show how it can be done. Writing one version for each interrupt is tedious - it is better to use the macro functionality of NASM <span class="citation">[32]</span>. Not all interrupts produce an error code, therefore the value 0 will be added as “error code” for interrupts without error code. The following code show an example of how this can be done:</p>
+<p>Since the CPU does not push the interrupt number on the stack it is a little tricky to write a generic interrupt handler. This section will use macros to show how it can be done. Writing one version for each interrupt is tedious - it is better to use the macro functionality of NASM <span class="citation">[34]</span>. And since not all interrupts produce an error code the value 0 will be added as the “error code” for interrupts without an error code. The following code shows an example of how this can be done:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="ot">%macro no_error_code_interrupt_handler %1</span>
     <span class="kw">global</span> interrupt_handler_<span class="ot">%1</span>
     interrupt_handler_<span class="ot">%1:</span>
@@ -1138,9 +1150,9 @@ Content: | segment selector   | offset low        |</code></pre>
 <li>Add 8 to <code>esp</code> (because of the error code and the interrupt number pushed earlier).</li>
 <li>Execute <code>iret</code> to return to the interrupted code.</li>
 </ul>
-<p>Since the macros declare global labels the addresses of the interrupt handlers can be accessed from C or assembly when creating the IDT.</p>
+<p>Since the macros declare global labels the addresses of the interrupt handlers can be accessed from C or assembly code when creating the IDT.</p>
 <h2 id="loading-the-idt"><a href="#TOC"><span class="header-section-number">6.5</span> Loading the IDT</a></h2>
-<p>The IDT is loaded with the <code>lidt</code> assembly instruction which takes the address of the first element in the table. It is easiest to wrap this instruction and use it from C:</p>
+<p>The IDT is loaded with the <code>lidt</code> assembly code instruction which takes the address of the first element in the table. It is easiest to wrap this instruction and use it from C:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">global</span>  load_idt
 
     <span class="co">; load_idt - Loads the interrupt descriptor table (IDT).</span>
@@ -1219,7 +1231,7 @@ Content: | segment selector   | offset low        |</code></pre>
 </tr>
 </tbody>
 </table>
-<p>A great tutorial for configuring the PIC can be found at the SigOPS website <span class="citation">[33]</span>. We won’t repeat that information here.</p>
+<p>A great tutorial for configuring the PIC can be found at the SigOPS website <span class="citation">[35]</span>. We won’t repeat that information here.</p>
 <p>Every interrupt from the PIC has to be acknowledged - that is, sending a message to the PIC confirming that the interrupt has been handled. If this isn’t done the PIC won’t generate any more interrupts.</p>
 <p>Acknowledging a PIC interrupt is done by sending the byte <code>0x20</code> to the PIC that raised the interrupt. Implementing a <code>pic_acknowledge</code> function can thus be done as follows:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="ot">#include &quot;io.h&quot;</span>
@@ -1266,19 +1278,19 @@ Content: | segment selector   | offset low        |</code></pre>
     {
         <span class="kw">return</span> inb(KBD_DATA_PORT);
     }</code></pre>
-<p>The next step is to write a function that translates a scan code to the corresponding ASCII character. If you want to map the scan codes to ASCII characters as is done on an American keyboard then Andries Brouwer has a great tutorial <span class="citation">[34]</span>.</p>
+<p>The next step is to write a function that translates a scan code to the corresponding ASCII character. If you want to map the scan codes to ASCII characters as is done on an American keyboard then Andries Brouwer has a great tutorial <span class="citation">[36]</span>.</p>
 <p>Remember, since the keyboard interrupt is raised by the PIC, you must call <code>pic_acknowledge</code> at the end of the keyboard interrupt handler. Also, the keyboard will not send you any more interrupts until you read the scan code from the keyboard.</p>
 <h2 id="further-reading-4"><a href="#TOC"><span class="header-section-number">6.8</span> Further Reading</a></h2>
 <ul>
 <li>The OSDev wiki has a great page on interrupts, <a href="http://wiki.osdev.org/Interrupts"><code class="url">http://wiki.osdev.org/Interrupts</code></a></li>
-<li>Chapter 6 of Intel Manual 3a <span class="citation">[31]</span> describes everything there is to know about interrupts.</li>
+<li>Chapter 6 of Intel Manual 3a <span class="citation">[33]</span> describes everything there is to know about interrupts.</li>
 </ul>
 <h1 id="the-road-to-user-mode"><a href="#TOC"><span class="header-section-number">7</span> The Road to User Mode</a></h1>
 <p>Now that the kernel boots, prints to screen and reads from keyboard - what do we do? Usually, a kernel is not supposed to do the application logic itself, but leave that for applications. The kernel creates the proper abstractions (for memory, files, devices) to make application development easier, performs tasks on behalf of applications (system calls) and <a href="#scheduling">schedules processes</a>.</p>
 <p>User mode, in contrast with kernel mode, is the environment in which the user’s programs execute. This environment is less privileged than the kernel, and will prevent (badly written) user programs from messing with other programs or the kernel. Badly written kernels are free to mess up what they want.</p>
 <p>There’s quite a way to go until the OS created in this book can execute programs in user mode, but this chapter will show how to easily execute a small program in kernel mode.</p>
 <h2 id="loading-an-external-program"><a href="#TOC"><span class="header-section-number">7.1</span> Loading an External Program</a></h2>
-<p>Where do we get the external program from? Somehow we need to load the code we want to execute into memory. More feature-complete operating systems usually have drivers and file systems that enable them load the software from a CD-ROM drive, a hard disk or other persistent media.</p>
+<p>Where do we get the external program from? Somehow we need to load the code we want to execute into memory. More feature-complete operating systems usually have drivers and file systems that enable them to load the software from a CD-ROM drive, a hard disk or other persistent media.</p>
 <p>Instead of creating all these drivers and file systems we will use a feature in GRUB called modules to load the program.</p>
 <h3 id="grub-modules"><a href="#TOC"><span class="header-section-number">7.1.1</span> GRUB Modules</a></h3>
 <p>GRUB can load arbitrary files into memory from the ISO image, and these files are usually referred to as <em>modules</em>. To make GRUB load a module, edit the file <code>iso/boot/grub/menu.lst</code> and add the following line at the end of the file:</p>
@@ -1318,16 +1330,16 @@ Content: | segment selector   | offset low        |</code></pre>
 <p>This is all we need. You must now move the file <code>program</code> to the folder <code>iso/modules</code>.</p>
 <h3 id="finding-the-program-in-memory"><a href="#TOC"><span class="header-section-number">7.2.3</span> Finding the Program in Memory</a></h3>
 <p>Before jumping to the program we must find where it resides in memory. Assuming that the contents of <code>ebx</code> is passed as an argument to <code>kmain</code>, we can do this entirely from C.</p>
-<p>The pointer in <code>ebx</code> points to a <em>multiboot</em> structure <span class="citation">[17]</span>. Download the <code>multiboot.h</code> file from <a href="http://www.gnu.org/software/grub/manual/multiboot/html_node/multiboot.h.html"><code class="url">http://www.gnu.org/software/grub/manual/multiboot/html_node/multiboot.h.html</code></a>, which describes the structure.</p>
-<p>The pointer passed to <code>kmain</code> in the <code>ebx</code> register can be casted to a <code>multiboot_info_t</code> pointer. The address of the first module is in the field <code>mods_addr</code>. The following code shows an example:</p>
+<p>The pointer in <code>ebx</code> points to a <em>multiboot</em> structure <span class="citation">[19]</span>. Download the <code>multiboot.h</code> file from <a href="http://www.gnu.org/software/grub/manual/multiboot/html_node/multiboot.h.html"><code class="url">http://www.gnu.org/software/grub/manual/multiboot/html_node/multiboot.h.html</code></a>, which describes the structure.</p>
+<p>The pointer passed to <code>kmain</code> in the <code>ebx</code> register can be cast to a <code>multiboot_info_t</code> pointer. The address of the first module is in the field <code>mods_addr</code>. The following code shows an example:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="dt">int</span> kmain(<span class="co">/* additional arguments */</span> <span class="dt">unsigned</span> <span class="dt">int</span> ebx)
     {
         multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
         <span class="dt">unsigned</span> <span class="dt">int</span> address_of_module = mbinfo-&gt;mods_addr;
     }</code></pre>
-<p>However, before just blindly following the pointer, you should check that the module got loaded correctly by GRUB. This can be done by checking the <code>flags</code> field of the <code>multiboot_info_t</code> structure. You should also check the field <code>mods_count</code> to make sure it is exactly 1. For more details about the multiboot structure, see the multiboot documentation <span class="citation">[17]</span>.</p>
+<p>However, before just blindly following the pointer, you should check that the module got loaded correctly by GRUB. This can be done by checking the <code>flags</code> field of the <code>multiboot_info_t</code> structure. You should also check the field <code>mods_count</code> to make sure it is exactly 1. For more details about the multiboot structure, see the multiboot documentation <span class="citation">[19]</span>.</p>
 <h3 id="jumping-to-the-code"><a href="#TOC"><span class="header-section-number">7.2.4</span> Jumping to the Code</a></h3>
-<p>The only thing left to do is to jump to the code loaded by GRUB. Since it is easier to parse the multiboot structure in C than assembly, calling the code from C is more convenient (it can of course be done with <code>jmp</code> or <code>call</code> in assembly as well). The C code could look like this:</p>
+<p>The only thing left to do is to jump to the code loaded by GRUB. Since it is easier to parse the multiboot structure in C than assembly code, calling the code from C is more convenient (it can of course be done with <code>jmp</code> or <code>call</code> in assembly code as well). The C code could look like this:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="kw">typedef</span> <span class="dt">void</span> (*call_module_t)(<span class="dt">void</span>);
     <span class="co">/* ... */</span>
     call_module_t start_program = (call_module_t) address_of_module;
@@ -1335,13 +1347,13 @@ Content: | segment selector   | offset low        |</code></pre>
     <span class="co">/* we&#39;ll never get here, unless the module code returns */</span></code></pre>
 <p>If we start the kernel, wait until it has run and entered the infinite loop in the program, and then halt Bochs, we should see <code>0xDEADBEEF</code> in the register <code>eax</code> via the Bochs log. We have successfully started a program in our OS!</p>
 <h2 id="the-beginning-of-user-mode"><a href="#TOC"><span class="header-section-number">7.3</span> The Beginning of User Mode</a></h2>
-<p>The program we’ve written now runs at the same privilege level as the kernel - we’ve just entered it in a somewhat peculiar way. To enable applications to execute at a different privilege level we’ll need to do <a href="#segmentation"><em>segmentation</em></a>, <a href="#paging"><em>paging</em></a> and <a href="#page-frame-allocation"><em>page frame allocation</em></a>.</p>
+<p>The program we’ve written now runs at the same privilege level as the kernel - we’ve just entered it in a somewhat peculiar way. To enable applications to execute at a different privilege level we’ll need to, beside <a href="#segmentation"><em>segmentation</em></a>, do <a href="#paging"><em>paging</em></a> and <a href="#page-frame-allocation"><em>page frame allocation</em></a>.</p>
 <p>It’s quite a lot of work and technical details to go through, but in a few chapters you’ll have working user mode programs.</p>
 <h1 id="a-short-introduction-to-virtual-memory"><a href="#TOC"><span class="header-section-number">8</span> A Short Introduction to Virtual Memory</a></h1>
-<p><em>Virtual memory</em> is an abstraction of physical memory. The purpose of virtual memory is generally to simplify application development and to let processes address more memory than what is actually physically present. We also don’t want applications messing with the kernel or other applications’ memory due to security.</p>
+<p><em>Virtual memory</em> is an abstraction of physical memory. The purpose of virtual memory is generally to simplify application development and to let processes address more memory than what is actually physically present in the machine. We also don’t want applications messing with the kernel or other applications’ memory due to security.</p>
 <p>In the x86 architecture, virtual memory can be accomplished in two ways: <em>segmentation</em> and <em>paging</em>. Paging is by far the most common and versatile technique, and we’ll implement it the next chapter. Some use of segmentation is still necessary to allow for code to execute under different privilege levels.</p>
 <p>Managing memory is a big part of what an operating system does. <a href="#paging">Paging</a> and <a href="#page-frame-allocation">page frame allocation</a> deals with that.</p>
-<p>Segmentation and paging is described in the Intel manual <span class="citation">[31]</span>, chapter 3 and 4.</p>
+<p>Segmentation and paging is described in the <span class="citation">[33]</span>, chapter 3 and 4.</p>
 <h2 id="virtual-memory-through-segmentation"><a href="#TOC"><span class="header-section-number">8.1</span> Virtual Memory Through Segmentation?</a></h2>
 <p>You could skip paging entirely and just use segmentation for virtual memory. Each user mode process would get its own segment, with base address and limit properly set up. This way no process can see the memory of another process. A problem with this is that the physical memory for a process needs to be contiguous (or at least it is very convenient if it is). Either we need to know in advance how much memory the program will require (unlikely), or we can move the memory segments to places where they can grow when the limit is reached (expensive, causes fragmentation - can result in “out of memory” even though enough memory is available). Paging solves both these problems.</p>
 <p>It is interesting to note that in x86_64 (the 64-bit version of the x86 architecture), segmentation is almost completely removed.</p>
@@ -1356,7 +1368,7 @@ Content: | segment selector   | offset low        |</code></pre>
 <p>Paging is the most common technique used in x86 to enable virtual memory. Virtual memory through paging means that each process will get the impression that the available memory range is <code>0x00000000</code> - <code>0xFFFFFFFF</code> even though the actual size of the memory might be much less. It also means that when a process addresses a byte of memory it will use a virtual (linear) address instead of physical one. The code in the user process won’t notice any difference (except for execution delays). The linear address gets translated to a physical address by the MMU and the page table. If the virtual address isn’t mapped to a physical address, the CPU will raise a page fault interrupt.</p>
 <p>Paging is optional, and some operating systems do not make use of it. But if we want to mark certain areas of memory accessible only to code running at a certain privilege level (to be able to have processes running at different privilege levels), paging is the neatest way to do it.</p>
 <h2 id="paging-in-x86"><a href="#TOC"><span class="header-section-number">9.2</span> Paging in x86</a></h2>
-<p>Paging in x86 (chapter 4 in the Intel manual <span class="citation">[31]</span>) consists of a <em>page directory</em> (PDT) that can contain references to 1024 <em>page tables</em> (PT), each of which can point to 1024 sections of physical memory called <em>page frames</em> (PF). Each page frame is 4096 byte large. In a virtual (linear) address, the highest 10 bits specifies the offset of a page directory entry (PDE) in the current PDT, the next 10 bits the offset of a page table entry (PTE) within the page table pointed to by that PDE. The lowest 12 bits in the address is the offset within the page frame to be addressed.</p>
+<p>Paging in x86 (chapter 4 in the Intel manual <span class="citation">[33]</span>) consists of a <em>page directory</em> (PDT) that can contain references to 1024 <em>page tables</em> (PT), each of which can point to 1024 sections of physical memory called <em>page frames</em> (PF). Each page frame is 4096 byte large. In a virtual (linear) address, the highest 10 bits specifies the offset of a page directory entry (PDE) in the current PDT, the next 10 bits the offset of a page table entry (PTE) within the page table pointed to by that PDE. The lowest 12 bits in the address is the offset within the page frame to be addressed.</p>
 <p>All page directories, page tables and page frames need to be aligned on 4096 byte addresses. This makes it possible to address a PDT, PT or PF with just the highest 20 bits of a 32 bit address, since the lowest 12 need to be zero.</p>
 <p>The PDE and PTE structure is very similar to each other: 32 bits (4 bytes), where the highest 20 bits points to a PTE or PF, and the lowest 12 bits control access rights and other configurations. 4 bytes times 1024 equals 4096 bytes, so a page directory and page table both fit in a page frame themselves.</p>
 <p>The translation of linear addresses to physical addresses is described in the figure below.</p>
@@ -1365,9 +1377,9 @@ Content: | segment selector   | offset low        |</code></pre>
 <img src="images/intel_4_2_linear_address_translation.png" alt="Translating virtual addresses (linear addresses) to physical addresses." /><p class="caption">Translating virtual addresses (linear addresses) to physical addresses.</p>
 </div>
 <p>The 20 bits pointing to the current PDT is stored in the register <code>cr3</code>. The lower 12 bits of <code>cr3</code> are used for configuration.</p>
-<p>For more details on the paging structures, see chapter 4 in the Intel manual <span class="citation">[31]</span>. The most interesting bits are <em>U/S</em>, which determine what privilege levels can access this page (PL0 or PL3), and <em>R/W</em>, which makes the memory in the page read-write or read-only.</p>
+<p>For more details on the paging structures, see chapter 4 in the Intel manual <span class="citation">[33]</span>. The most interesting bits are <em>U/S</em>, which determine what privilege levels can access this page (PL0 or PL3), and <em>R/W</em>, which makes the memory in the page read-write or read-only.</p>
 <h3 id="identity-paging"><a href="#TOC"><span class="header-section-number">9.2.1</span> Identity Paging</a></h3>
-<p>The simplest kind of paging is when we map each virtual address onto the same physical address, called <em>identity paging</em>. This can be done at compile time by creating a page directory where each entry points to its corresponding 4 MB frame. In NASM this can be done with macros and commands (<code>%rep</code>, <code>times</code> and <code>dd</code>). It can of course also be done at run-time by using ordinary assembly instructions.</p>
+<p>The simplest kind of paging is when we map each virtual address onto the same physical address, called <em>identity paging</em>. This can be done at compile time by creating a page directory where each entry points to its corresponding 4 MB frame. In NASM this can be done with macros and commands (<code>%rep</code>, <code>times</code> and <code>dd</code>). It can of course also be done at run-time by using ordinary assembly code instructions.</p>
 <h3 id="enabling-paging"><a href="#TOC"><span class="header-section-number">9.2.2</span> Enabling Paging</a></h3>
 <p>Paging is enabled by first writing the address of a page directory to <code>cr3</code> and then setting bit 31 (the PG “paging-enable” bit) of <code>cr0</code> to <code>1</code>. To use 4 MB pages, set the PSE bit (Page Size Extensions, bit 4) of <code>cr4</code>. The following assembly code shows an example:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="co">; eax has the address of the page directory</span>
@@ -1389,7 +1401,7 @@ Content: | segment selector   | offset low        |</code></pre>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="co">; invalidate any TLB references to virtual address 0</span>
     <span class="kw">invlpg</span> [<span class="dv">0</span>]</code></pre>
 <h2 id="paging-and-the-kernel"><a href="#TOC"><span class="header-section-number">9.3</span> Paging and the Kernel</a></h2>
-<p>This section will describe how paging affects the OS kernel. We encourage you to run your OS using identity paging before trying to implement a more advanced paging setup, since it can be hard to debug a malfunctioning page table that is set up via assembly.</p>
+<p>This section will describe how paging affects the OS kernel. We encourage you to run your OS using identity paging before trying to implement a more advanced paging setup, since it can be hard to debug a malfunctioning page table that is set up via assembly code.</p>
 <h3 id="reasons-to-not-identity-map-the-kernel"><a href="#TOC"><span class="header-section-number">9.3.1</span> Reasons to Not Identity Map the Kernel</a></h3>
 <p>If the kernel is placed at the beginning of the virtual address space - that is, the virtual address space (<code>0x00000000</code>, <code>&quot;size of kernel&quot;</code>) maps to the location of the kernel in memory - there will be issues when linking the user mode process code. Normally, during linking, the linker assumes that the code will be loaded into the memory position <code>0x00000000</code>. Therefore, when resolving absolute references, <code>0x00000000</code> will be the base address for calculating the exact position. But if the kernel is mapped onto the virtual address space (<code>0x00000000</code>, <code>&quot;size of kernel&quot;</code>), the user mode process cannot be loaded at virtual address <code>0x00000000</code> - it must be placed somewhere else. Therefore, the assumption from the linker that the user mode process is loaded into memory at position <code>0x00000000</code> is wrong. This can be corrected by using a linker script which tells the linker to assume a different starting address, but that is a very cumbersome solution for the users of the operating system.</p>
 <p>This also assumes that we want the kernel to be part of the user mode process’ address space. As we will see later, this is a nice feature, since during system calls we don’t have to change any paging structures to get access to the kernel’s code and data. The kernel pages will of course require privilege level 0 for access, to prevent a user process from reading or writing kernel memory.</p>
@@ -1400,7 +1412,7 @@ Content: | segment selector   | offset low        |</code></pre>
 <p>To start with, it is better to place the kernel at <code>0xC0100000</code> than <code>0xC0000000</code>, since this makes it possible to map (<code>0x00000000</code>, <code>0x00100000</code>) to (<code>0xC0000000</code>, <code>0xC0100000</code>). This way, the entire range (<code>0x00000000</code>, <code>&quot;size of kernel&quot;</code>) of memory is mapped to the range (<code>0xC0000000</code>, <code>0xC0000000  + &quot;size of kernel&quot;</code>).</p>
 <p>Placing the kernel at <code>0xC0100000</code> isn’t hard, but it does require some thought. This is once again a linking problem. When the linker resolves all absolute references in the kernel, it will assume that our kernel is loaded at physical memory location <code>0x00100000</code>, not <code>0x00000000</code>, since relocation is used in the linker script (see the section <a href="#linking-the-kernel">“Linking the kernel”</a>). However, we want the jumps to be resolved using <code>0xC0100000</code> as base address, since otherwise a kernel jump will jump straight into the user mode process code (remember that the user mode process is loaded at virtual memory <code>0x00000000</code>).</p>
 <p>However, we can’t simply tell the linker to assume that the kernel starts (is loaded) at <code>0xC01000000</code>, since we want it to be loaded at the physical address <code>0x00100000</code>. The reason for having the kernel loaded at 1 MB is because it can’t be loaded at <code>0x00000000</code>, since there is BIOS and GRUB code loaded below 1 MB. Furthermore, we cannot assume that we can load the kernel at <code>0xC0100000</code>, since the machine might not have 3 GB of physical memory.</p>
-<p>This can be solved by using both relocation (<code>.=0xC0100000</code>) and the <code>AT</code> instruction in the linker script. Relocation specifies that non-relative memory-references should should use the relocation address as base in address calculations. <code>AT</code> specifies where the kernel should be loaded into memory. Relocation is done at link time by GNU ld <span class="citation">[35]</span>, the load address specified by <code>AT</code> is handled by GRUB when loading the kernel, and is part of the ELF format <span class="citation">[16]</span>.</p>
+<p>This can be solved by using both relocation (<code>.=0xC0100000</code>) and the <code>AT</code> instruction in the linker script. Relocation specifies that non-relative memory-references should should use the relocation address as base in address calculations. <code>AT</code> specifies where the kernel should be loaded into memory. Relocation is done at link time by GNU ld <span class="citation">[37]</span>, the load address specified by <code>AT</code> is handled by GRUB when loading the kernel, and is part of the ELF format <span class="citation">[18]</span>.</p>
 <h3 id="higher-half-linker-script"><a href="#TOC"><span class="header-section-number">9.3.4</span> Higher-half Linker Script</a></h3>
 <p>We can modify the <a href="#linking-the-kernel">first linker script</a> to implement this:</p>
 <pre><code>    ENTRY(loader)           /* the name of the entry symbol */
@@ -1455,23 +1467,23 @@ Content: | segment selector   | offset low        |</code></pre>
 <h3 id="running-in-the-higher-half"><a href="#TOC"><span class="header-section-number">9.3.6</span> Running in the Higher Half</a></h3>
 <p>There are a few more details we must deal with when using a higher-half kernel. We must be careful when using memory-mapped I/O that uses specific memory locations. For example, the frame buffer is located at <code>0x000B8000</code>, but since there is no entry in the page table for the address <code>0x000B8000</code> any longer, the address <code>0xC00B8000</code> must be used, since the virtual address <code>0xC0000000</code> maps to the physical address <code>0x00000000</code>.</p>
 <p>Any explicit references to addresses within the multiboot structure needs to be changed to reflect the new virtual addresses as well.</p>
-<p>Mapping 4 MB pages for the kernel is simple, but wastes memory (unless you have a really big kernel). Creating a higher-half kernel mapped in as 4 KB pages saves memory but is harder to set up. Memory for the page directory and one page table can be reserved in the <code>.data</code> section, but one needs to configure the mappings from virtual to physical addresses at run-time. The size of the kernel can be determined by exporting labels from the linker script <span class="citation">[35]</span>, which we’ll need to do later anyway when writing the page frame allocator (see the chapter <a href="#page-frame-allocation">&quot;Page Frame Allocation</a>).</p>
+<p>Mapping 4 MB pages for the kernel is simple, but wastes memory (unless you have a really big kernel). Creating a higher-half kernel mapped in as 4 KB pages saves memory but is harder to set up. Memory for the page directory and one page table can be reserved in the <code>.data</code> section, but one needs to configure the mappings from virtual to physical addresses at run-time. The size of the kernel can be determined by exporting labels from the linker script <span class="citation">[37]</span>, which we’ll need to do later anyway when writing the page frame allocator (see the chapter <a href="#page-frame-allocation">&quot;Page Frame Allocation</a>).</p>
 <h2 id="virtual-memory-through-paging"><a href="#TOC"><span class="header-section-number">9.4</span> Virtual Memory Through Paging</a></h2>
 <p>Paging enables two things that are good for virtual memory. First, it allows for fine-grained access control to memory. You can mark pages as read-only, read-write, only for PL0 etc. Second, it creates the illusion of contiguous memory. User mode processes, and the kernel, can access memory as if it were contiguous, and the contiguous memory can be extended without the need to move data around in memory. We can also allow the user mode programs access to all memory below 3 GB, but unless they actually use it, we don’t have to assign page frames to the pages. This allows processes to have code located near <code>0x00000000</code> and the stack at just below <code>0xC0000000</code>, and still not require more than two actual pages.</p>
 <h2 id="further-reading-6"><a href="#TOC"><span class="header-section-number">9.5</span> Further Reading</a></h2>
 <ul>
-<li>Chapter 4 (and to some extent chapter 3) of the Intel manual <span class="citation">[31]</span> are your definitive sources for the details about paging.</li>
+<li>Chapter 4 (and to some extent chapter 3) of the Intel manual <span class="citation">[33]</span> are your definitive sources for the details about paging.</li>
 <li>Wikipedia has an article on paging: <a href="http://en.wikipedia.org/wiki/Paging"><code class="url">http://en.wikipedia.org/wiki/Paging</code></a></li>
 <li>The OSDev wiki has a page on paging: <a href="http://wiki.osdev.org/Paging"><code class="url">http://wiki.osdev.org/Paging</code></a> and a tutorial for making a higher-half kernel: <a href="http://wiki.osdev.org/Higher_Half_bare_bones"><code class="url">http://wiki.osdev.org/Higher_Half_bare_bones</code></a></li>
 <li>Gustavo Duarte’s article on how a kernel manages memory is well worth a read: <a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory"><code class="url">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory</code></a></li>
-<li>Details on the linker command language can be found at Steve Chamberlain’s website <span class="citation">[35]</span>.</li>
+<li>Details on the linker command language can be found at Steve Chamberlain’s website <span class="citation">[37]</span>.</li>
 <li>More details on the ELF format can be found in this presentation: <a href="http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf"><code class="url">http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf</code></a></li>
 </ul>
 <h1 id="page-frame-allocation"><a href="#TOC"><span class="header-section-number">10</span> Page Frame Allocation</a></h1>
 <p>When using virtual memory, how does the OS know which parts of memory are free to use? That is the role of the page frame allocator.</p>
 <h2 id="managing-available-memory"><a href="#TOC"><span class="header-section-number">10.1</span> Managing Available Memory</a></h2>
 <h3 id="how-much-memory-is-there"><a href="#TOC"><span class="header-section-number">10.1.1</span> How Much Memory is There?</a></h3>
-<p>First we need to know how much memory is available on the computer the OS is running on. The easiest way to do this is to read it from the multiboot structure <span class="citation">[17]</span> passed to us by GRUB. GRUB collects the information we need about the memory - what is reserved, I/O mapped, read-only etc. We must also make sure that we don’t mark the part of memory used by the kernel as free (since GRUB doesn’t mark this memory as reserved). One way to know how much memory the kernel uses is to export labels at the beginning and the end of the kernel binary from the linker script:</p>
+<p>First we need to know how much memory is available on the computer the OS is running on. The easiest way to do this is to read it from the multiboot structure <span class="citation">[19]</span> passed to us by GRUB. GRUB collects the information we need about the memory - what is reserved, I/O mapped, read-only etc. We must also make sure that we don’t mark the part of memory used by the kernel as free (since GRUB doesn’t mark this memory as reserved). One way to know how much memory the kernel uses is to export labels at the beginning and the end of the kernel binary from the linker script:</p>
 <pre><code>    ENTRY(loader)           /* the name of the entry symbol */
 
     . = 0xC0100000          /* the code should be relocated to 3 GB + 1 MB */
@@ -1521,7 +1533,7 @@ Content: | segment selector   | offset low        |</code></pre>
     <span class="kw">push</span> kernel_virtual_start
 
     <span class="kw">call</span> kmain</code></pre>
-<p>This way we get the labels as arguments to <code>kmain</code>. If you want to use C instead of assembly, one way to do it is to declare the labels as functions and take the addresses of these functions:</p>
+<p>This way we get the labels as arguments to <code>kmain</code>. If you want to use C instead of assembly code, one way to do it is to declare the labels as functions and take the addresses of these functions:</p>
 <pre class="sourceCode c"><code class="sourceCode c">    <span class="dt">void</span> kernel_virtual_start(<span class="dt">void</span>);
 
     <span class="co">/* ... */</span>
@@ -1531,7 +1543,7 @@ Content: | segment selector   | offset low        |</code></pre>
 <p>Note that the available memory does not need to be contiguous. In the first 1 MB there are several I/O-mapped memory sections, as well as memory used by GRUB and the BIOS. Other parts of the memory might be similarly unavailable.</p>
 <p>It’s convenient to divide the memory sections into complete page frames, as we can’t map part of pages into memory.</p>
 <h3 id="managing-available-memory-1"><a href="#TOC"><span class="header-section-number">10.1.2</span> Managing Available Memory</a></h3>
-<p>How do we know which page frames are in use? The page frame allocator needs to keep track of which are free and which aren’t. There are several ways to do this: bitmaps, linked lists, trees, the Buddy System (used by Linux) etc. For more information about the different algorithms see the article on OSDev <span class="citation">[36]</span>.</p>
+<p>How do we know which page frames are in use? The page frame allocator needs to keep track of which are free and which aren’t. There are several ways to do this: bitmaps, linked lists, trees, the Buddy System (used by Linux) etc. For more information about the different algorithms see the article on OSDev <span class="citation">[38]</span>.</p>
 <p>Bitmaps are quite easy to implement. One bit is used for each page frame and one (or more) page frames are dedicated to store the bitmap. (Note that this is just one way to do it, other designs might be better and/or more fun to implement.)</p>
 <h2 id="how-can-we-access-a-page-frame"><a href="#TOC"><span class="header-section-number">10.2</span> How Can We Access a Page Frame?</a></h2>
 <p>The page frame allocator returns the physical start address of the page frame. This page frame is not mapped in - no page table points to this page frame. How can we read and write data to the frame?</p>
@@ -1541,7 +1553,7 @@ Content: | segment selector   | offset low        |</code></pre>
 <p>After we’ve temporarily mapped the page frame we want to use as a page table, and set it up to map in our first page frame, we can add it to the paging directory, and remove the temporary mapping.</p>
 <h2 id="a-kernel-heap"><a href="#TOC"><span class="header-section-number">10.3</span> A Kernel Heap</a></h2>
 <p>So far we’ve only been able to work with fixed-size data, or directly with raw memory. Now that we have a page frame allocator we can implement <code>malloc</code> and <code>free</code> to use in the kernel.</p>
-<p>Kernighan and Ritchie <span class="citation">[6]</span> have an example implementation in their book <span class="citation">[6]</span> that we can draw inspiration from. The only modification we need to do is to replace calls to <code>sbrk</code>/<code>brk</code> with calls to the page frame allocator when more memory is needed. We must also make sure to map the page frames returned by the page frame allocator to virtual addresses. A correct implementation should also return page frames to the page frame allocator on call to <code>free</code>, whenever sufficiently large blocks of memory are freed.</p>
+<p>Kernighan and Ritchie <span class="citation">[8]</span> have an example implementation in their book <span class="citation">[8]</span> that we can draw inspiration from. The only modification we need to do is to replace calls to <code>sbrk</code>/<code>brk</code> with calls to the page frame allocator when more memory is needed. We must also make sure to map the page frames returned by the page frame allocator to virtual addresses. A correct implementation should also return page frames to the page frame allocator on call to <code>free</code>, whenever sufficiently large blocks of memory are freed.</p>
 <h2 id="further-reading-7"><a href="#TOC"><span class="header-section-number">10.4</span> Further reading</a></h2>
 <ul>
 <li>The OSDev wiki page on page frame allocation: <a href="http://wiki.osdev.org/Page_Frame_Allocation"><code class="url">http://wiki.osdev.org/Page_Frame_Allocation</code></a></li>
@@ -1598,9 +1610,9 @@ Content: | segment selector   | offset low        |</code></pre>
     [esp +  8]  eflags  ; the control flags we want to use in user mode
     [esp +  4]  cs      ; the code segment selector
     [esp +  0]  eip     ; the instruction pointer of user mode code to execute</code></pre>
-<p>See the Intel manual <span class="citation">[31]</span>, section 6.2.1, figure 6-4 for more information.</p>
+<p>See the Intel manual <span class="citation">[33]</span>, section 6.2.1, figure 6-4 for more information.</p>
 <p>The instruction <code>iret</code> will then read these values from the stack and fill in the corresponding registers. Before we execute <code>iret</code> we need to change to the page directory we setup for the user mode process. It is important to remember that to continue executing kernel code after we’ve switched PDT, the kernel needs to be mapped in. One way to accomplish this is to have a separate PDT for the kernel, which maps all data at <code>0xC0000000</code> and above, and merge it with the user PDT (which only maps below <code>0xC0000000</code>) when performing the switch. Remember that physical address of the PDT has to be used when setting the register <code>cr3</code>.</p>
-<p>The register <code>eflags</code> contains a set of different flags, specified in section 2.3 of the Intel manual <span class="citation">[31]</span>. Most important for us is the interrupt enable (IF) flag. The assembly instruction <code>sti</code> can’t be used in privilege level 3 for enabling interrupts. If interrupts are disabled when entering user mode, then interrupts can’t enabled once user mode is entered. Setting the IF flag in the <code>eflags</code> entry on the stack will enable interrupts in user mode, since the assembly instruction <code>iret</code> will set the register <code>eflags</code> to the corresponding value on the stack.</p>
+<p>The register <code>eflags</code> contains a set of different flags, specified in section 2.3 of the Intel manual <span class="citation">[33]</span>. Most important for us is the interrupt enable (IF) flag. The assembly code instruction <code>sti</code> can’t be used in privilege level 3 for enabling interrupts. If interrupts are disabled when entering user mode, then interrupts can’t enabled once user mode is entered. Setting the IF flag in the <code>eflags</code> entry on the stack will enable interrupts in user mode, since the assembly code instruction <code>iret</code> will set the register <code>eflags</code> to the corresponding value on the stack.</p>
 <p>For now, we should have interrupts disabled, as it requires a little more work to get inter-privilege level interrupts to work properly (see the section <a href="#system-calls">“System calls”</a>).</p>
 <p>The value <code>eip</code> on the stack should point to the entry point for the user code - <code>0x00000000</code> in our case. The value <code>esp</code> on the stack should be where the stack starts - <code>0xBFFFFFFB</code> (<code>0xC0000000 - 4</code>).</p>
 <p>The values <code>cs</code> and <code>ss</code> on the stack should be the segment selectors for the user code and user data segments, respectively. As we saw in the <a href="#creating-and-loading-the-gdt">segmentation chapter</a>, the lowest two bits of a segment selector is the RPL - the Requested Privilege Level. When using <code>iret</code> to enter PL3, the RPL of <code>cs</code> and <code>ss</code> should be <code>0x3</code>. The following code shows an example:</p>
@@ -1608,12 +1620,12 @@ Content: | segment selector   | offset low        |</code></pre>
     USER_MODE_DATA_SEGMENT_SELECTOR <span class="dt">equ</span><span class="bn"> 0x20</span>
     <span class="kw">mov</span> <span class="kw">cs</span>, USER_MODE_CODE_SEGMENT_SELECTOR |<span class="bn"> 0x3</span>
     <span class="kw">mov</span> <span class="kw">ss</span>, USER_MODE_DATA_SEGMENT_SELECTOR |<span class="bn"> 0x3</span></code></pre>
-<p>The register <code>ds</code>, and the other data segment registers, should be set to the same segment selector as <code>ss</code>. They can be set the ordinary way, with the <code>mov</code> assembly instruction.</p>
+<p>The register <code>ds</code>, and the other data segment registers, should be set to the same segment selector as <code>ss</code>. They can be set the ordinary way, with the <code>mov</code> assembly code instruction.</p>
 <p>We are now ready to execute <code>iret</code>. If everything has been set up right, we should now have a kernel that can enter user mode.</p>
 <h2 id="using-c-for-user-mode-programs"><a href="#TOC"><span class="header-section-number">11.4</span> Using C for User Mode Programs</a></h2>
 <p>When C is used as the programming language for user mode programs, it is important to think about the structure of the file that will be the result of the compilation.</p>
-<p>The reason we can use ELF <span class="citation">[16]</span> as the file format for for the kernel executable is because GRUB knows how to parse and interpret the ELF file format. If we implemented an ELF parser, we could compile the user mode programs into ELF binaries as well. We leave this as an exercise for the reader.</p>
-<p>One thing we can do to make it easier to develop user mode programs is to allow the programs to be written in C, but compile them to flat binaries instead of ELF binaries. In C the layout of the generated code is more unpredictable and the entry point, <code>main</code>, might not be at offset 0 in the binary. One common way to work around this is to add a few assembly lines placed at offset 0 which calls <code>main</code>:</p>
+<p>The reason we can use ELF <span class="citation">[18]</span> as the file format for for the kernel executable is because GRUB knows how to parse and interpret the ELF file format. If we implemented an ELF parser, we could compile the user mode programs into ELF binaries as well. We leave this as an exercise for the reader.</p>
+<p>One thing we can do to make it easier to develop user mode programs is to allow the programs to be written in C, but compile them to flat binaries instead of ELF binaries. In C the layout of the generated code is more unpredictable and the entry point, <code>main</code>, might not be at offset 0 in the binary. One common way to work around this is to add a few assembly code lines placed at offset 0 which calls <code>main</code>:</p>
 <pre class="sourceCode nasm"><code class="sourceCode nasm">    <span class="kw">extern</span> main
 
     <span class="kw">section</span> .text
@@ -1690,16 +1702,16 @@ Content: | segment selector   | offset low        |</code></pre>
 <h2 id="implementing-system-calls"><a href="#TOC"><span class="header-section-number">13.2</span> Implementing System Calls</a></h2>
 <p>System calls are traditionally invoked with software interrupts. The user applications put the appropriate values in registers or on the stack and then initiates a pre-defined interrupt which transfers execution to the kernel. The interrupt number used is dependent on the kernel, Linux uses the number <code>0x80</code> to identify that an interrupt is intended as a system call.</p>
 <p>When system calls are executed, the current privilege level is typically changed from PL3 to PL0 (if the application is running in user mode). To allow this, the DPL of the entry in the IDT for the system call interrupt needs to allow PL3 access.</p>
-<p>Whenever inter-privilege level interrupts occur, the processor pushes a few important registers onto the stack - the same ones we used to enter user mode <a href="#user-mode">before</a>, see figure 6-4, section 6.12.1, in the Intel manual <span class="citation">[31]</span>. What stack is used? The same section in <span class="citation">[31]</span> specifies that if an interrupt leads to code executing at a numerically lower privilege level, a stack switch occurs. The new values for the registers <code>ss</code> and <code>esp</code> is loaded from the current Task State Segment (TSS). The TSS structure is specified in figure 7-2, section 7.2.1 of the Intel manual <span class="citation">[31]</span>.</p>
-<p>To enable system calls we need to setup a TSS before entering user mode. Setting it up can be done in C by setting the <code>ss0</code> and <code>esp0</code> fields of a “packed struct” that represents a TSS. Before loading the “packed struct” into the processor, a TSS descriptor has to be added to the GDT. The structure of the TSS descriptor is described in section 7.2.2 in <span class="citation">[31]</span>.</p>
-<p>You specify the current TSS segment selector by loading it into the <code>tr</code> register with the <code>ltr</code> assembly instruction. If the TSS segment descriptor has index 5, and thus offset <code>5 * 8 = 40 = 0x28</code>, this is the value that should be loaded into the register <code>tr</code>.</p>
-<p>When we entered user mode before in the chapter <a href="#entering-user-mode">“Entering User Mode”</a> we disabled interrupts when executing in PL3. Since system calls are implemented using interrupts, interrupts must be enabled in user mode. Setting the IF flag bit in the <code>eflags</code> value on the stack will make <code>iret</code> enable interrupts (since the <code>eflags</code> value on the stack will be loaded into the <code>eflags</code> register by the assembly instruction <code>iret</code>).</p>
+<p>Whenever inter-privilege level interrupts occur, the processor pushes a few important registers onto the stack - the same ones we used to enter user mode <a href="#user-mode">before</a>, see figure 6-4, section 6.12.1, in the Intel manual <span class="citation">[33]</span>. What stack is used? The same section in <span class="citation">[33]</span> specifies that if an interrupt leads to code executing at a numerically lower privilege level, a stack switch occurs. The new values for the registers <code>ss</code> and <code>esp</code> is loaded from the current Task State Segment (TSS). The TSS structure is specified in figure 7-2, section 7.2.1 of the Intel manual <span class="citation">[33]</span>.</p>
+<p>To enable system calls we need to setup a TSS before entering user mode. Setting it up can be done in C by setting the <code>ss0</code> and <code>esp0</code> fields of a “packed struct” that represents a TSS. Before loading the “packed struct” into the processor, a TSS descriptor has to be added to the GDT. The structure of the TSS descriptor is described in section 7.2.2 in <span class="citation">[33]</span>.</p>
+<p>You specify the current TSS segment selector by loading it into the <code>tr</code> register with the <code>ltr</code> assembly code instruction. If the TSS segment descriptor has index 5, and thus offset <code>5 * 8 = 40 = 0x28</code>, this is the value that should be loaded into the register <code>tr</code>.</p>
+<p>When we entered user mode before in the chapter <a href="#entering-user-mode">“Entering User Mode”</a> we disabled interrupts when executing in PL3. Since system calls are implemented using interrupts, interrupts must be enabled in user mode. Setting the IF flag bit in the <code>eflags</code> value on the stack will make <code>iret</code> enable interrupts (since the <code>eflags</code> value on the stack will be loaded into the <code>eflags</code> register by the assembly code instruction <code>iret</code>).</p>
 <h2 id="further-reading-10"><a href="#TOC"><span class="header-section-number">13.3</span> Further Reading</a></h2>
 <ul>
 <li>The Wikipedia page on POSIX, with links to the specifications: <a href="http://en.wikipedia.org/wiki/POSIX"><code class="url">http://en.wikipedia.org/wiki/POSIX</code></a></li>
 <li>A list of system calls used in Linux: <a href="http://bluemaster.iu.hio.no/edu/dark/lin-asm/syscalls.html"><code class="url">http://bluemaster.iu.hio.no/edu/dark/lin-asm/syscalls.html</code></a></li>
 <li>The Wikipedia page on system calls: <a href="http://en.wikipedia.org/wiki/System_call"><code class="url">http://en.wikipedia.org/wiki/System_call</code></a></li>
-<li>The Intel manual <span class="citation">[31]</span> sections on interrupts (chapter 6) and TSS (chapter 7) are where you get all the details you need.</li>
+<li>The Intel manual <span class="citation">[33]</span> sections on interrupts (chapter 6) and TSS (chapter 7) are where you get all the details you need.</li>
 </ul>
 <h1 id="multitasking"><a href="#TOC"><span class="header-section-number">14</span> Multitasking</a></h1>
 <p>How do you make multiple processes appear to run at the same time? Today, this question has two answers:</p>
@@ -1714,13 +1726,13 @@ Content: | segment selector   | offset low        |</code></pre>
 <p>The easiest way to achieve rapid switching between processes is if the processes themselves are responsible for the switching. The processes run for a while and then tell the OS (via a system call) that it can now switch to another process. Giving up the control of CPU to another process is called <em>yielding</em> and when the processes themselves are responsible for the scheduling it’s called <em>cooperative scheduling</em>, since all the processes must cooperate with each other.</p>
 <p>When a process yields the process’ entire state must be saved (all the registers), preferably on the kernel heap in a structure that represents a process. When changing to a new process all the registers must be restored from the saved values.</p>
 <p>Scheduling can be implemented by keeping a list of which processes are running. The system call <code>yield</code> should then run the next process in the list and put the current one last (other schemes are possible, but this is a simple one).</p>
-<p>The transfer of control to the new process is done via the <code>iret</code> assembly instruction in exactly the same way as explained in the section <a href="#entering-user-mode">“Entering user mode”</a> in the chapter <a href="#user-mode">“User Mode”</a>.</p>
+<p>The transfer of control to the new process is done via the <code>iret</code> assembly code instruction in exactly the same way as explained in the section <a href="#entering-user-mode">“Entering user mode”</a> in the chapter <a href="#user-mode">“User Mode”</a>.</p>
 <p>We <strong>strongly</strong> recommend that you start to implement support for multiple processes by implementing cooperative scheduling. We further recommend that you have a working solution for both <code>exec</code>, <code>fork</code> and <code>yield</code> before implementing preemptive scheduling. Since cooperative scheduling is deterministic, it is much easier to debug than preemptive scheduling.</p>
 <h2 id="preemptive-scheduling-with-interrupts"><a href="#TOC"><span class="header-section-number">14.3</span> Preemptive Scheduling with Interrupts</a></h2>
 <p>Instead of letting the processes themselves manage when to change to another process the OS can switch processes automatically after a short period of time. The OS can set up the <em>programmable interval timer</em> (PIT) to raise an interrupt after a short period of time, for example 20 ms. In the interrupt handler for the PIT interrupt the OS will change the running process to a new one. This way the processes themselves don’t need to worry about scheduling. This kind of scheduling is called <em>preemptive scheduling</em>.</p>
 <h3 id="programmable-interval-timer"><a href="#TOC"><span class="header-section-number">14.3.1</span> Programmable Interval Timer</a></h3>
 <p>To be able to do preemptive scheduling the PIT must first be configured to raise interrupts every <em>x</em> milliseconds, where <em>x</em> should be configurable.</p>
-<p>The configuration of the PIT is very similar to the configuration of other hardware devices: a byte is sent to an I/O port. The command port of the PIT is <code>0x43</code>. To read about all the configuration options, see the article about the PIT on OSDev <span class="citation">[37]</span>. We use the following options:</p>
+<p>The configuration of the PIT is very similar to the configuration of other hardware devices: a byte is sent to an I/O port. The command port of the PIT is <code>0x43</code>. To read about all the configuration options, see the article about the PIT on OSDev <span class="citation">[39]</span>. We use the following options:</p>
 <ul>
 <li>Raise interrupts (use channel 0)</li>
 <li>Send the divider as low byte then high byte (see next section for an explanation)</li>
@@ -1729,7 +1741,7 @@ Content: | segment selector   | offset low        |</code></pre>
 </ul>
 <p>This results in the configuration byte <code>00110110</code>.</p>
 <p>Setting the interval for how often interrupts are to be raised is done via a <em>divider</em>, the same way as for the serial port. Instead of sending the PIT a value (e.g. in milliseconds) that says how often an interrupt should be raised you send the divider. The PIT operates at 1193182 Hz as default. Sending the divider 10 results in the PIT running at <code>1193182 / 10 = 119318</code> Hz. The divider can only be 16 bits, so it is only possible to configure the timer’s frequency between 1193182 Hz and <code>1193182 / 65535 = 18.2</code> Hz. We recommend that you create a function that takes an interval in milliseconds and converts it to the correct divider.</p>
-<p>The divider is sent to the channel 0 data I/O port of the PIT, but since only one byte can be sent at at a time, the lowest 8 bits of the divider has to sent first, then the highest 8 bits of the divider can be sent. The channel 0 data I/O port is located at <code>0x40</code>. Again, see the article on OSDev <span class="citation">[37]</span> for more details.</p>
+<p>The divider is sent to the channel 0 data I/O port of the PIT, but since only one byte can be sent at at a time, the lowest 8 bits of the divider has to sent first, then the highest 8 bits of the divider can be sent. The channel 0 data I/O port is located at <code>0x40</code>. Again, see the article on OSDev <span class="citation">[39]</span> for more details.</p>
 <h3 id="separate-kernel-stacks-for-processes"><a href="#TOC"><span class="header-section-number">14.3.2</span> Separate Kernel Stacks for Processes</a></h3>
 <p>If all processes uses the same kernel stack (the stack exposed by the TSS) there will be trouble if a process is interrupted while still in kernel mode. The process that is being switched to will now use the same kernel stack and will overwrite what the previous process have written on the stack (remember that TSS data structure points to the <em>beginning</em> of the stack).</p>
 <p>To solve this problem every process should have it’s own kernel stack, the same way that each process have their own user mode stack. When switching process the TSS must be updated to point to the new process’ kernel stack.</p>
@@ -1744,42 +1756,44 @@ Content: | segment selector   | offset low        |</code></pre>
 </ul>
 <h1 id="references"><a href="#TOC"><span class="header-section-number">15</span> References</a></h1>
 <p>[1] Andrew Tanenbaum, 2007. <em>Modern Operating Systems, 3rd edition</em>. Prentice Hall, Inc.,</p>
-<p>[2] OSDev, <em>OSDev</em>, <a href="http://wiki.osdev.org/Main_Page" title="http://wiki.osdev.org/Main_Page">http://wiki.osdev.org/Main_Page</a>,</p>
-<p>[3] James Molloy, <em>James M’s kernel development tutorial</em>, <a href="http://www.jamesmolloy.co.uk/tutorial_html/" title="http://www.jamesmolloy.co.uk/tutorial_html/">http://www.jamesmolloy.co.uk/tutorial_html/</a>,</p>
-<p>[4] Canonical Ltd, <em>Ubuntu</em>, <a href="http://www.ubuntu.com/" title="http://www.ubuntu.com/">http://www.ubuntu.com/</a>,</p>
-<p>[5] Oracle, <em>Oracle VM VirtualBox</em>, <a href="http://www.virtualbox.org/" title="http://www.virtualbox.org/">http://www.virtualbox.org/</a>,</p>
-<p>[6] Dennis M. Ritchie Brian W. Kernighan, 1988. <em>The C Programming Language, Second Edition</em>. Prentice Hall, Inc.,</p>
-<p>[7] Wikipedia, <em>C (programming language)</em>, <a href="http://en.wikipedia.org/wiki/C_(programming_language)" title="http://en.wikipedia.org/wiki/C_(programming_language)">http://en.wikipedia.org/wiki/C_(programming_language)</a>,</p>
-<p>[8] Free Software Foundation, <em>GCC, the GNU Compiler Collection</em>, <a href="http://gcc.gnu.org/" title="http://gcc.gnu.org/">http://gcc.gnu.org/</a>,</p>
-<p>[9] NASM, <em>NASM: The Netwide Assembler</em>, <a href="http://www.nasm.us/" title="http://www.nasm.us/">http://www.nasm.us/</a>,</p>
-<p>[10] Wikipedia, <em>Bash</em>, <a href="http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29" title="http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29</a>,</p>
-<p>[11] Free Software Foundation, <em>GNU Make</em>, <a href="http://www.gnu.org/software/make/" title="http://www.gnu.org/software/make/">http://www.gnu.org/software/make/</a>,</p>
-<p>[12] Volker Ruppert, <em>bochs: The Open Souce IA-32 emulation project</em>, <a href="http://bochs.sourceforge.net/" title="http://bochs.sourceforge.net/">http://bochs.sourceforge.net/</a>,</p>
-<p>[13] QEMU, <em>QEMU</em>, <a href="http://wiki.qemu.org/Main_Page" title="http://wiki.qemu.org/Main_Page">http://wiki.qemu.org/Main_Page</a>,</p>
-<p>[14] Wikipedia, <em>BIOS</em>, <a href="https://en.wikipedia.org/wiki/BIOS" title="https://en.wikipedia.org/wiki/BIOS">https://en.wikipedia.org/wiki/BIOS</a>,</p>
-<p>[15] Free Software Foundation, <em>GNU GRUB</em>, <a href="http://www.gnu.org/software/grub/" title="http://www.gnu.org/software/grub/">http://www.gnu.org/software/grub/</a>,</p>
-<p>[16] Wikipedia, <em>Executable and Linkable Format</em>, <a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format" title="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a>,</p>
-<p>[17] Free Software Foundation, <em>Multiboot Specification version 0.6.96</em>, <a href="http://www.gnu.org/software/ grub/manual/multiboot/multiboot.html" title="http://www.gnu.org/software/ grub/manual/multiboot/multiboot.html">http://www.gnu.org/software/ grub/manual/multiboot/multiboot.html</a>,</p>
-<p>[18] GNU, <em>GNU Binutils</em>, <a href="http://www.gnu.org/software/binutils/" title="http://www.gnu.org/software/binutils/">http://www.gnu.org/software/binutils/</a>,</p>
-<p>[19] Lars Nodeen, <em>Bug #426419: configure: error: GRUB requires a working absolute objcopy</em>, <a href="https://bugs.launchpad.net/ubuntu/+source/grub/+bug/426419" title="https://bugs.launchpad.net/ubuntu/+source/grub/+bug/426419">https://bugs.launchpad.net/ubuntu/+source/grub/+bug/426419</a>,</p>
-<p>[20] Wikipedia, <em>ISO image</em>, <a href="http://en.wikipedia.org/wiki/ISO_image" title="http://en.wikipedia.org/wiki/ISO_image">http://en.wikipedia.org/wiki/ISO_image</a>,</p>
-<p>[21] Bochs, <em>bochsrc</em>, <a href="http://bochs.sourceforge.net/doc/docbook/user/bochsrc.html" title="http://bochs.sourceforge.net/doc/docbook/user/bochsrc.html">http://bochs.sourceforge.net/doc/docbook/user/bochsrc.html</a>,</p>
-<p>[22] NASM, <em>RESB and Friends: Declaring Uninitialized Data</em>, <a href="http://www.nasm.us/doc/nasmdoc3.htm" title="http://www.nasm.us/doc/nasmdoc3.htm">http://www.nasm.us/doc/nasmdoc3.htm</a>,</p>
-<p>[23] Wikipedia, <em>x86 calling conventions</em>, <a href="http://en.wikipedia.org/wiki/X86_calling_conventions" title="http://en.wikipedia.org/wiki/X86_calling_conventions">http://en.wikipedia.org/wiki/X86_calling_conventions</a>,</p>
-<p>[24] Wikipedia, <em>Framebuffer</em>, <a href="http://en.wikipedia.org/wiki/Framebuffer" title="http://en.wikipedia.org/wiki/Framebuffer">http://en.wikipedia.org/wiki/Framebuffer</a>,</p>
-<p>[25] Wikipedia, <em>VGA-compatible text mode</em>, <a href="http://en.wikipedia.org/wiki/VGA-compatible_text_mode" title="http://en.wikipedia.org/wiki/VGA-compatible_text_mode">http://en.wikipedia.org/wiki/VGA-compatible_text_mode</a>,</p>
-<p>[26] Wikipedia, <em>ASCII</em>, <a href="https://en.wikipedia.org/wiki/Ascii" title="https://en.wikipedia.org/wiki/Ascii">https://en.wikipedia.org/wiki/Ascii</a>,</p>
-<p>[27] OSDev, <em>VGA Hardware</em>, <a href="http://wiki.osdev.org/VGA_Hardware" title="http://wiki.osdev.org/VGA_Hardware">http://wiki.osdev.org/VGA_Hardware</a>,</p>
-<p>[28] Wikipedia, <em>Serial port</em>, <a href="http://en.wikipedia.org/wiki/Serial_port" title="http://en.wikipedia.org/wiki/Serial_port">http://en.wikipedia.org/wiki/Serial_port</a>,</p>
-<p>[29] OSDev, <em>Serial Ports</em>, <a href="http://wiki.osdev.org/Serial_ports" title="http://wiki.osdev.org/Serial_ports">http://wiki.osdev.org/Serial_ports</a>,</p>
-<p>[30] WikiBooks, <em>Serial Programming/8250 UART Programming</em>, <a href="http://en.wikibooks.org/wiki/Serial_Programming/ 8250_UART_Programming" title="http://en.wikibooks.org/wiki/Serial_Programming/ 8250_UART_Programming">http://en.wikibooks.org/wiki/Serial_Programming/ 8250_UART_Programming</a>,</p>
-<p>[31] Intel, <em>Intel 64 and IA-32 Architectures Software Developer’s Manual Vol. 3A</em>, <a href="http://www.intel.com/content/ www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html/" title="http://www.intel.com/content/ www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html/">http://www.intel.com/content/ www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html/</a>,</p>
-<p>[32] NASM, <em>Multi-Line Macros</em>, <a href="http://www.nasm.us/doc/nasmdoc4.html#section-4.3" title="http://www.nasm.us/doc/nasmdoc4.html#section-4.3">http://www.nasm.us/doc/nasmdoc4.html#section-4.3</a>,</p>
-<p>[33] SIGOPS, <a href="http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html" title="http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html">http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html</a>,</p>
-<p>[34] Andries Brouwer, <em>Keyboard scancodes</em>, <a href="http://www.win.tue.nl/" title="http://www.win.tue.nl/">http://www.win.tue.nl/</a>,</p>
-<p>[35] Steve Chamberlain, <em>Using ld, the GNU linker</em>, <a href="http://www.math.utah.edu/docs/info/ld_toc.html" title="http://www.math.utah.edu/docs/info/ld_toc.html">http://www.math.utah.edu/docs/info/ld_toc.html</a>,</p>
-<p>[36] OSDev, <em>Page Frame Allocation</em>, <a href="http://wiki.osdev.org/Page_Frame_Allocation" title="http://wiki.osdev.org/Page_Frame_Allocation">http://wiki.osdev.org/Page_Frame_Allocation</a>,</p>
-<p>[37] OSDev, <em>Programmable Interval Timer</em>, <a href="http://wiki.osdev.org/Programmable_Interval_Timer" title="http://wiki.osdev.org/Programmable_Interval_Timer">http://wiki.osdev.org/Programmable_Interval_Timer</a>,</p>
+<p>[2] <em>The Royal Institute of Technology</em>, <a href="http://www.kth.se" title="http://www.kth.se">http://www.kth.se</a>,</p>
+<p>[3] Wikipedia, <em>Hexadecimal</em>, <a href="http://en.wikipedia.org/wiki/Hexadecimal" title="http://en.wikipedia.org/wiki/Hexadecimal">http://en.wikipedia.org/wiki/Hexadecimal</a>,</p>
+<p>[4] OSDev, <em>OSDev</em>, <a href="http://wiki.osdev.org/Main_Page" title="http://wiki.osdev.org/Main_Page">http://wiki.osdev.org/Main_Page</a>,</p>
+<p>[5] James Molloy, <em>James M’s kernel development tutorial</em>, <a href="http://www.jamesmolloy.co.uk/tutorial_html/" title="http://www.jamesmolloy.co.uk/tutorial_html/">http://www.jamesmolloy.co.uk/tutorial_html/</a>,</p>
+<p>[6] Canonical Ltd, <em>Ubuntu</em>, <a href="http://www.ubuntu.com/" title="http://www.ubuntu.com/">http://www.ubuntu.com/</a>,</p>
+<p>[7] Oracle, <em>Oracle VM VirtualBox</em>, <a href="http://www.virtualbox.org/" title="http://www.virtualbox.org/">http://www.virtualbox.org/</a>,</p>
+<p>[8] Dennis M. Ritchie Brian W. Kernighan, 1988. <em>The C Programming Language, Second Edition</em>. Prentice Hall, Inc.,</p>
+<p>[9] Wikipedia, <em>C (programming language)</em>, <a href="http://en.wikipedia.org/wiki/C_(programming_language)" title="http://en.wikipedia.org/wiki/C_(programming_language)">http://en.wikipedia.org/wiki/C_(programming_language)</a>,</p>
+<p>[10] Free Software Foundation, <em>GCC, the GNU Compiler Collection</em>, <a href="http://gcc.gnu.org/" title="http://gcc.gnu.org/">http://gcc.gnu.org/</a>,</p>
+<p>[11] NASM, <em>NASM: The Netwide Assembler</em>, <a href="http://www.nasm.us/" title="http://www.nasm.us/">http://www.nasm.us/</a>,</p>
+<p>[12] Wikipedia, <em>Bash</em>, <a href="http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29" title="http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29</a>,</p>
+<p>[13] Free Software Foundation, <em>GNU Make</em>, <a href="http://www.gnu.org/software/make/" title="http://www.gnu.org/software/make/">http://www.gnu.org/software/make/</a>,</p>
+<p>[14] Volker Ruppert, <em>bochs: The Open Souce IA-32 emulation project</em>, <a href="http://bochs.sourceforge.net/" title="http://bochs.sourceforge.net/">http://bochs.sourceforge.net/</a>,</p>
+<p>[15] QEMU, <em>QEMU</em>, <a href="http://wiki.qemu.org/Main_Page" title="http://wiki.qemu.org/Main_Page">http://wiki.qemu.org/Main_Page</a>,</p>
+<p>[16] Wikipedia, <em>BIOS</em>, <a href="https://en.wikipedia.org/wiki/BIOS" title="https://en.wikipedia.org/wiki/BIOS">https://en.wikipedia.org/wiki/BIOS</a>,</p>
+<p>[17] Free Software Foundation, <em>GNU GRUB</em>, <a href="http://www.gnu.org/software/grub/" title="http://www.gnu.org/software/grub/">http://www.gnu.org/software/grub/</a>,</p>
+<p>[18] Wikipedia, <em>Executable and Linkable Format</em>, <a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format" title="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a>,</p>
+<p>[19] Free Software Foundation, <em>Multiboot Specification version 0.6.96</em>, <a href="http://www.gnu.org/software/ grub/manual/multiboot/multiboot.html" title="http://www.gnu.org/software/ grub/manual/multiboot/multiboot.html">http://www.gnu.org/software/ grub/manual/multiboot/multiboot.html</a>,</p>
+<p>[20] GNU, <em>GNU Binutils</em>, <a href="http://www.gnu.org/software/binutils/" title="http://www.gnu.org/software/binutils/">http://www.gnu.org/software/binutils/</a>,</p>
+<p>[21] Lars Nodeen, <em>Bug #426419: configure: error: GRUB requires a working absolute objcopy</em>, <a href="https://bugs.launchpad.net/ubuntu/+source/grub/+bug/426419" title="https://bugs.launchpad.net/ubuntu/+source/grub/+bug/426419">https://bugs.launchpad.net/ubuntu/+source/grub/+bug/426419</a>,</p>
+<p>[22] Wikipedia, <em>ISO image</em>, <a href="http://en.wikipedia.org/wiki/ISO_image" title="http://en.wikipedia.org/wiki/ISO_image">http://en.wikipedia.org/wiki/ISO_image</a>,</p>
+<p>[23] Bochs, <em>bochsrc</em>, <a href="http://bochs.sourceforge.net/doc/docbook/user/bochsrc.html" title="http://bochs.sourceforge.net/doc/docbook/user/bochsrc.html">http://bochs.sourceforge.net/doc/docbook/user/bochsrc.html</a>,</p>
+<p>[24] NASM, <em>RESB and Friends: Declaring Uninitialized Data</em>, <a href="http://www.nasm.us/doc/nasmdoc3.htm" title="http://www.nasm.us/doc/nasmdoc3.htm">http://www.nasm.us/doc/nasmdoc3.htm</a>,</p>
+<p>[25] Wikipedia, <em>x86 calling conventions</em>, <a href="http://en.wikipedia.org/wiki/X86_calling_conventions" title="http://en.wikipedia.org/wiki/X86_calling_conventions">http://en.wikipedia.org/wiki/X86_calling_conventions</a>,</p>
+<p>[26] Wikipedia, <em>Framebuffer</em>, <a href="http://en.wikipedia.org/wiki/Framebuffer" title="http://en.wikipedia.org/wiki/Framebuffer">http://en.wikipedia.org/wiki/Framebuffer</a>,</p>
+<p>[27] Wikipedia, <em>VGA-compatible text mode</em>, <a href="http://en.wikipedia.org/wiki/VGA-compatible_text_mode" title="http://en.wikipedia.org/wiki/VGA-compatible_text_mode">http://en.wikipedia.org/wiki/VGA-compatible_text_mode</a>,</p>
+<p>[28] Wikipedia, <em>ASCII</em>, <a href="https://en.wikipedia.org/wiki/Ascii" title="https://en.wikipedia.org/wiki/Ascii">https://en.wikipedia.org/wiki/Ascii</a>,</p>
+<p>[29] OSDev, <em>VGA Hardware</em>, <a href="http://wiki.osdev.org/VGA_Hardware" title="http://wiki.osdev.org/VGA_Hardware">http://wiki.osdev.org/VGA_Hardware</a>,</p>
+<p>[30] Wikipedia, <em>Serial port</em>, <a href="http://en.wikipedia.org/wiki/Serial_port" title="http://en.wikipedia.org/wiki/Serial_port">http://en.wikipedia.org/wiki/Serial_port</a>,</p>
+<p>[31] OSDev, <em>Serial Ports</em>, <a href="http://wiki.osdev.org/Serial_ports" title="http://wiki.osdev.org/Serial_ports">http://wiki.osdev.org/Serial_ports</a>,</p>
+<p>[32] WikiBooks, <em>Serial Programming/8250 UART Programming</em>, <a href="http://en.wikibooks.org/wiki/Serial_Programming/ 8250_UART_Programming" title="http://en.wikibooks.org/wiki/Serial_Programming/ 8250_UART_Programming">http://en.wikibooks.org/wiki/Serial_Programming/ 8250_UART_Programming</a>,</p>
+<p>[33] Intel, <em>Intel 64 and IA-32 Architectures Software Developer’s Manual Vol. 3A</em>, <a href="http://www.intel.com/content/ www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html/" title="http://www.intel.com/content/ www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html/">http://www.intel.com/content/ www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.html/</a>,</p>
+<p>[34] NASM, <em>Multi-Line Macros</em>, <a href="http://www.nasm.us/doc/nasmdoc4.html#section-4.3" title="http://www.nasm.us/doc/nasmdoc4.html#section-4.3">http://www.nasm.us/doc/nasmdoc4.html#section-4.3</a>,</p>
+<p>[35] SIGOPS, <a href="http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html" title="http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html">http://www.acm.uiuc.edu/sigops/roll_your_own/i386/irq.html</a>,</p>
+<p>[36] Andries Brouwer, <em>Keyboard scancodes</em>, <a href="http://www.win.tue.nl/" title="http://www.win.tue.nl/">http://www.win.tue.nl/</a>,</p>
+<p>[37] Steve Chamberlain, <em>Using ld, the GNU linker</em>, <a href="http://www.math.utah.edu/docs/info/ld_toc.html" title="http://www.math.utah.edu/docs/info/ld_toc.html">http://www.math.utah.edu/docs/info/ld_toc.html</a>,</p>
+<p>[38] OSDev, <em>Page Frame Allocation</em>, <a href="http://wiki.osdev.org/Page_Frame_Allocation" title="http://wiki.osdev.org/Page_Frame_Allocation">http://wiki.osdev.org/Page_Frame_Allocation</a>,</p>
+<p>[39] OSDev, <em>Programmable Interval Timer</em>, <a href="http://wiki.osdev.org/Programmable_Interval_Timer" title="http://wiki.osdev.org/Programmable_Interval_Timer">http://wiki.osdev.org/Programmable_Interval_Timer</a>,</p>
 <div class="footnotes">
 <hr />
 <ol>
